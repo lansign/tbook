@@ -1,0 +1,28 @@
+{
+  "name": "ubook",
+  "version": "1.0.0",
+  "description": "u own book",
+  "main": "index.js",
+  "dependencies": {
+    "express": "~4.13.4",
+    "graphql": "~0.5.0",
+    "express-graphql": "~0.5.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "--test--"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lansign/ubook"
+  },
+  "keywords": [
+    "nodejs",
+    "react"
+  ],
+  "author": "lansign",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/lansign/ubook/issues"
+  }
+}
