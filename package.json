@@ -4,13 +4,14 @@
   "description": "u own book",
   "main": "index.js",
   "dependencies": {
+    "body-parser": "^1.15.1",
     "express": "~4.13.4",
-    "graphql": "~0.5.0",
-    "express-graphql": "~0.5.1"
+    "express-graphql": "~0.5.1",
+    "graphql": "^0.5.0"
   },
-  "devDependencies": {},
   "scripts": {
-    "test": "--test--"
+    "test": "--test--",
+    "server": "babel-node server.js"
   },
   "repository": {
     "type": "git",
