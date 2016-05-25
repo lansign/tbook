@@ -3,19 +3,13 @@
  */
 
 var graphql = require ('graphql');
+var mongoose = require('mongoose')
 
-var TODOs = [
-    {
-        "id": 1446412739542,
-        "title": "Read emails",
-        "completed": false
-    },
-    {
-        "id": 1446412740883,
-        "title": "Buy orange",
-        "completed": true
-    }
-];
+var TODO = mongoose.model('Todo', {
+    id: mongoose.Schema.Types.ObjectId,
+    title: String,
+    completed: Boolean
+})
 
 var TodoType = new graphql.GraphQLObjectType({
     name: 'todo',
@@ -34,24 +28,23 @@ var TodoType = new graphql.GraphQLObjectType({
     }
 });
 
-var queryType = new graphql.GraphQLObjectType({
+var QueryType = new graphql.GraphQLObjectType({
     name: 'Query',
-    fields: function () {
-        return {
-            todos: {
-                type: new graphql.GraphQLList(TodoType),
-                resolve: function () {
-                    return new Promise(function (resolve, reject) {
-                        setTimeout(function () {
-                            resolve(TODOs)
-                        }, 4000)
-                    });
-                }
+    fields: () => ({
+        todos: {
+            type: new graphql.GraphQLList(TodoType),
+            resolve: () => {
+                return new Promise((resolve, reject) => {
+                    TODO.find((err, todos) => {
+                        if (err) reject(err)
+                        else resolve(todos)
+                    })
+                })
             }
         }
-    }
-});
+    })
+})
 
 module.exports = new graphql.GraphQLSchema({
-    query: queryType
+    query: QueryType
 });
