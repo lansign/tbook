@@ -30,20 +30,21 @@ var TodoType = new graphql.GraphQLObjectType({
 
 var QueryType = new graphql.GraphQLObjectType({
     name: 'Query',
-    fields: () => ({
-        todos: {
-            type: new graphql.GraphQLList(TodoType),
-            resolve: () => {
-                return new Promise((resolve, reject) => {
-                    TODO.find((err, todos) => {
-                        if (err) reject(err)
-                        else resolve(todos)
-                    })
-                })
+    fields: function fields() {
+        return {
+            todos: {
+                type: new graphql.GraphQLList(TodoType),
+                resolve: function resolve() {
+                    return new Promise(function (resolve, reject) {
+                        TODO.find(function (err, todos) {
+                            if (err) reject(err);else resolve(todos);
+                        });
+                    });
+                }
             }
-        }
-    })
-})
+        };
+    }
+});
 
 module.exports = new graphql.GraphQLSchema({
     query: QueryType
