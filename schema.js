@@ -4,6 +4,12 @@
 
 var graphql = require ('graphql');
 var mongoose = require('mongoose')
+mongoose.connect('mongodb://localhost/DATABASE_UBOOK');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+    console.log('connection mongodb success')
+});
 
 var TODO = mongoose.model('Todo', {
     id: mongoose.Schema.Types.ObjectId,
