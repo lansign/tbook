@@ -8,7 +8,7 @@ var graphQLHTTP = require('express-graphql')
 var Schema = require('./schema')
 
 // This is just an internal test
-var query = 'query { todos { id, title, completed } }'
+var query = 'query { todos {title} }'
 graphql(Schema, query).then( function(result) {
     console.log(JSON.stringify(result,null," "));
 
