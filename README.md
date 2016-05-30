@@ -13,6 +13,7 @@
   ```
   * window请自行搜索教程
 3. 安装工程依赖
+
   ```shell
   cd tbook & npm install
   ```
@@ -26,8 +27,16 @@
   apt-get install mongodb
   ```
   * window请自行搜索教程
-5. 创建mongodb文件夹`mkdir -p /data/db`
-6. 运行服务工程：`node server` 
+5. 创建mongodb文件夹
+
+  ```shell
+  mkdir -p /data/db
+  ```
+6. 运行服务工程：
+
+  ```shell
+  node server
+  ```
 
 ## tbook增删改示例
 1 新增
