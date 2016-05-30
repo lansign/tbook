@@ -8,10 +8,10 @@ var graphQLHTTP = require('express-graphql')
 var Schema = require('./schema')
 
 // This is just an internal test
+var mutation = 'mutation {add(title:"Read a book"){id, title}}';
 var query = 'query { todos {title} }'
 graphql(Schema, query).then( function(result) {
-    console.log(JSON.stringify(result,null," "));
-
+    console.log("graphql query result", JSON.stringify(result,null," "));
 });
 
 var app = express()
