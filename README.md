@@ -45,7 +45,7 @@ curl -XPOST -H "Content-Type:application/graphql" -d 'mutation {save(title:"Read
 ```
 2 删除
 ```shell
--XPOST -H "Content-Type:application/graphql"  -d 'mutation {delete(id:"574be8c38db6bad4ca0cbbb0"){id, title}}' http://localhost:3000
+curl -XPOST -H "Content-Type:application/graphql"  -d 'mutation {delete(id:"574be8c38db6bad4ca0cbbb0"){id, title}}' http://localhost:3000
 ```
 3 查询
 ```shell
