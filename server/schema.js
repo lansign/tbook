@@ -11,14 +11,17 @@ db.once('open', function() {
     console.log('connection mongodb success')
 });
 
-var TODO = mongoose.model('Todo', {
+var BOOK = mongoose.model('Book', {
     id: mongoose.Schema.Types.ObjectId,
     title: String,
-    completed: Boolean
+    imageUrl: String,
+    thumbnailUrl: String,
+    summary: String,
+    content: String
 })
 
-var TodoType = new graphql.GraphQLObjectType({
-    name: 'todo',
+var BookType = new graphql.GraphQLObjectType({
+    name: 'Book',
     fields: function () {
         return {
             id: {
@@ -27,8 +30,17 @@ var TodoType = new graphql.GraphQLObjectType({
             title: {
                 type: graphql.GraphQLString
             },
-            completed: {
-                type: graphql.GraphQLBoolean
+            imageUrl: {
+                type: graphql.GraphQLString
+            },
+            thumbnailUrl: {
+                type: graphql.GraphQLString
+            },
+            summary: {
+                type: graphql.GraphQLString
+            },
+            content: {
+                type: graphql.GraphQLString
             }
         }
     }
@@ -38,12 +50,13 @@ var QueryType = new graphql.GraphQLObjectType({
     name: 'Query',
     fields: function fields() {
         return {
-            todos: {
-                type: new graphql.GraphQLList(TodoType),
+            books: {
+                type: new graphql.GraphQLList(BookType),
                 resolve: function resolve() {
                     return new Promise(function (resolve, reject) {
-                        TODO.find(function (err, todos) {
-                            if (err) reject(err);else resolve(todos);
+                        BOOK.find(function (err, books) {
+                            console.log("query books", books)
+                            if (err) reject(err);else resolve(books);
                         });
                     });
                 }
@@ -52,26 +65,66 @@ var QueryType = new graphql.GraphQLObjectType({
     }
 });
 
-var MutationAdd = {
-    type: TodoType,
-    description: 'Add a Todo',
+var MutationSave = {
+    type: BookType,
     args: {
+        id: {
+            type: graphql.GraphQLID
+        },
         title: {
-            name: 'Todo title',
+            type: new graphql.GraphQLNonNull(graphql.GraphQLString)
+        },
+        imageUrl: {
+            type: graphql.GraphQLString
+        },
+        thumbnailUrl: {
+            type: graphql.GraphQLString
+        },
+        summary: {
+            type: graphql.GraphQLString
+        },
+        content: {
             type: new graphql.GraphQLNonNull(graphql.GraphQLString)
         }
     },
     resolve: (root, args) => {
-        var newTodo = new TODO({
-            title: args.title,
-            completed: false
-        })
-        newTodo.id = newTodo._id
         return new Promise((resolve, reject) => {
-            newTodo.save(function (err) {
-                if (err) reject(err)
-                else resolve(newTodo)
+            book = new BOOK({
+                id:args.id,
+                title:args.title,
+                imageUrl:args.imageUrl,
+                thumbnailUrl:args.thumbnailUrl,
+                summary:args.summary,
+                content:args.content
             })
+
+            if (book.id) {
+                book._id = book.id
+            } else {
+                book.id = book._id
+            }
+
+            book.save(function (err) {
+                if (err) reject(err)
+                else resolve(book)
+            })
+        })
+    }
+}
+
+var MutationDelete = {
+    type: BookType,
+    args: {
+        id: {
+            type: graphql.GraphQLID
+        }
+    },
+    resolve: (root, args) => {
+        return new Promise((resolve, reject) => {
+            var book = BOOK.find({ _id:args.id}).remove(function (err) {
+                if (err) reject(err)
+                else resolve(book)
+            });
         })
     }
 }
@@ -79,7 +132,8 @@ var MutationAdd = {
 var MutationType = new graphql.GraphQLObjectType({
     name: 'Mutation',
     fields: {
-        add: MutationAdd
+        save: MutationSave,
+        delete:MutationDelete
     }
 });
 
