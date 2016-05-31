@@ -6,7 +6,8 @@ import React from 'react'
 import {
     View,
     Image,
-    StyleSheet
+    StyleSheet,
+    TouchableOpacity
 } from 'react-native'
 
 import {Text} from 'TBText'
@@ -15,7 +16,7 @@ export default class CardWrapper extends React.Component{
 
     render(){
         return(
-            <View>
+            <TouchableOpacity onPress={this.props.onPress}>
                 <View style={styles.rowBox}>
                     <View style={styles.titleBox}>
                         <Text numberOfLines={2} style={styles.title}>
@@ -36,7 +37,7 @@ export default class CardWrapper extends React.Component{
                     <Image style={{width: 84,height: 70}} source={{uri:'http://img.alicdn.com/tps/TB1kaazMpXXXXacXFXXXXXXXXXX-900-500.jpg'}}/>
                 </View>
                 <View style={styles.split}/>
-            </View>
+            </TouchableOpacity>
         )
 
     }

@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 
 import CardWrapper from './CardWrapper'
+import BookDetail from '../detail'
 
 var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2, sectionHeaderHasChanged: (prev, next) => prev !== next});
 
@@ -27,15 +28,23 @@ export default class BookListView extends React.Component{
 
     renderRow(rowData,sectionID,rowID){
         return(
-            <CardWrapper data={rowData}/>
+            <CardWrapper data={rowData} onPress={this.onItemClick.bind(this)}/>
         )
+    }
+
+    onItemClick(rowData){
+        this.props.navigator.push({
+            component:BookDetail,
+            name:'bookDetail',
+            params:{data:rowData}
+        })
     }
 
     render(){
         return(
             <ListView
                 dataSource={ds.cloneWithRows(this.state.books)}
-                renderRow={this.renderRow}/>
+                renderRow={this.renderRow.bind(this)}/>
         )
     }
 }

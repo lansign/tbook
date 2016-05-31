@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import CreateLogger from 'redux-logger';
 import * as reducers from './reducers';
-import HomePage from './page/home'
+import Root from './page'
 
 var isDebuggingInChrome = __DEV__;
 
@@ -27,7 +27,7 @@ export default class Ubook extends Component {
     render(){
         return(
             <Provider store={store}>
-                <HomePage {...this.props}/>
+                <Root {...this.props}/>
             </Provider>
         )
     }

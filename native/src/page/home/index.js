@@ -18,7 +18,7 @@ export default class HomePage extends Component{
         return(
             <View style={{flex:1}}>
                 <Header title="技术博客"/>
-                <ListView />
+                <ListView navigator={this.props.navigator}/>
             </View>
         )
     }
