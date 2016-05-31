@@ -2,10 +2,11 @@
  * Created by Guang on 16/3/24.
  */
 
-function test(state = {}, action){
-    return state;
-}
+"use strict";
 
-export {
-    test
-}
+import {combineReducers} from 'redux';
+import book from './book'
+
+module.exports = combineReducers({
+    book
+});

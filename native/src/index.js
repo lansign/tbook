@@ -2,31 +2,29 @@
  * Created by Guang on 16/3/24.
  */
 
-import React, {Component} from 'react';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import CreateLogger from 'redux-logger';
-import * as reducers from './reducers';
+"use strict";
+
+import React from 'react';
 import Root from './page'
+var { Provider } = require('react-redux');
+var configureStore = require('./store/configureStore');
 
-var isDebuggingInChrome = __DEV__;
 
-var logger = CreateLogger({
-    predicate:(getState,action) => isDebuggingInChrome,
-    collapsed: true,
-    duration: true
-});
+export default class Ubook extends React.Component {
 
-const createStoreWithMiddleware = applyMiddleware(thunk,logger)(createStore);
-const reducer = combineReducers(reducers);
-const store = createStoreWithMiddleware(reducer);
-
-export default class Ubook extends Component {
+    // 构造
+    constructor(props) {
+        super(props);
+        // 初始状态
+        this.state = {
+            isLoading: true,
+            store: configureStore(() => this.setState({isLoading: false})),
+        };
+    }
 
     render(){
         return(
-            <Provider store={store}>
+            <Provider store={this.state.store}>
                 <Root {...this.props}/>
             </Provider>
         )

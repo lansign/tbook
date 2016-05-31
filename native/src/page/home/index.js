@@ -10,16 +10,36 @@ import {
 
 import Header from'TBHeader'
 import ListView from './BookListView'
+import {connect} from 'react-redux'
 
-export default class HomePage extends Component{
+import {
+    update
+} from '../../action'
+
+class HomePage extends Component{
+
+    // 构造
+    constructor(props) {
+        super(props);
+
+        this.props.dispatch(update())
+    }
 
 
     render() {
         return(
             <View style={{flex:1}}>
                 <Header title="技术博客"/>
-                <ListView navigator={this.props.navigator}/>
+                <ListView navigator={this.props.navigator} data={this.props.book.books}/>
             </View>
         )
     }
 }
+
+function select(store){
+    return{
+        book:store.book
+    }
+}
+
+module.exports = connect(select)(HomePage);

@@ -12,7 +12,7 @@ import {
 import CardWrapper from './CardWrapper'
 import BookDetail from '../detail'
 
-var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2, sectionHeaderHasChanged: (prev, next) => prev !== next});
+var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
 
 
 export default class BookListView extends React.Component{
@@ -22,8 +22,14 @@ export default class BookListView extends React.Component{
         super(props);
         // 初始状态
         this.state = {
-            books:[1,2,3,4,5,6,7,8]
+            books:[]
         };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            books:nextProps.data
+        })
     }
 
     renderRow(rowData,sectionID,rowID){
@@ -44,6 +50,7 @@ export default class BookListView extends React.Component{
         return(
             <ListView
                 dataSource={ds.cloneWithRows(this.state.books)}
+                enableEmptySections={true}
                 renderRow={this.renderRow.bind(this)}/>
         )
     }
