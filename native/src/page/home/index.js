@@ -5,18 +5,18 @@
 import React, { Component } from 'react';
 import {
     View,
-    Text,
     TouchableOpacity
 } from 'react-native'
 
 import Header from'TBHeader'
+import CardWrapper from './CardWrapper'
 
 export default class HomePage extends Component{
     render() {
         return(
             <View style={{flex:1}}>
                 <Header title="技术博客"/>
-                <Text>Test</Text>
+                <CardWrapper />
             </View>
         )
     }
