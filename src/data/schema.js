@@ -12,9 +12,12 @@ import {
   GraphQLObjectType as ObjectType,
 } from 'graphql';
 
-import me from './queries/me';
-import content from './queries/content';
-import news from './queries/news';
+import me from './queries/me'
+import content from './queries/content'
+import news from './queries/news'
+import books from './queries/book'
+import article from './mutation/Article'
+import articleDelete from './mutation/ArticleDelete'
 
 const schema = new Schema({
   query: new ObjectType({
@@ -23,8 +26,16 @@ const schema = new Schema({
       me,
       content,
       news,
-    },
+      books
+    }
   }),
+  mutation: new ObjectType({
+    name: 'Mutation',
+    fields: {
+      article,
+      articleDelete
+    }
+  })
 });
 
 export default schema;

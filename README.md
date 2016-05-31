@@ -35,19 +35,21 @@
 6. 运行服务工程：
 
   ```shell
-  node server
+  npm start
   ```
 
 ## tbook增删改示例
 1 新增
 ```shell
-curl -XPOST -H "Content-Type:application/graphql" -d 'mutation {save(title:"Read two book", content:"test"){id, title}}' http://localhost:3000
+curl -XPOST -H "Content-Type:application/graphql" -d 'mutation {article(title: "Read two book", content: "test") {id,title}}' http://localhost:3000/graphql
 ```
 2 删除
 ```shell
-curl -XPOST -H "Content-Type:application/graphql"  -d 'mutation {delete(id:"574be8c38db6bad4ca0cbbb0"){id, title}}' http://localhost:3000
+curl -XPOST -H "Content-Type:application/graphql"  -d 'mutation {articleDelete(id:"574be8c38db6bad4ca0cbbb0"){id, title}}' http://localhost:3000/graphql
 ```
 3 查询
 ```shell
-curl -XPOST -H "Content-Type:application/graphql" -d 'query { books { id,title } }' http://localhost:3000
+curl -XPOST -H "Content-Type:application/graphql" -d 'query { books { id,title } }' http://localhost:3000/graphql
 ```
+
+> Note:也可以直接进入图形页面进行测试`http://localhost:3000/graphql`
