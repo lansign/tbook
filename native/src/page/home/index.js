@@ -9,10 +9,13 @@ import {
     TouchableOpacity
 } from 'react-native'
 
+import Header from'TBHeader'
+
 export default class HomePage extends Component{
     render() {
         return(
-            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+            <View style={{flex:1}}>
+                <Header title="技术博客"/>
                 <Text>Test</Text>
             </View>
         )
