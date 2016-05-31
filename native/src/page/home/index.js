@@ -9,14 +9,16 @@ import {
 } from 'react-native'
 
 import Header from'TBHeader'
-import CardWrapper from './CardWrapper'
+import ListView from './BookListView'
 
 export default class HomePage extends Component{
+
+
     render() {
         return(
             <View style={{flex:1}}>
                 <Header title="技术博客"/>
-                <CardWrapper />
+                <ListView />
             </View>
         )
     }
