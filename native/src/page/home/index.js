@@ -5,15 +5,20 @@
 import React, { Component } from 'react';
 import {
     View,
-    Text,
     TouchableOpacity
 } from 'react-native'
 
+import Header from'TBHeader'
+import ListView from './BookListView'
+
 export default class HomePage extends Component{
+
+
     render() {
         return(
-            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                <Text>Test</Text>
+            <View style={{flex:1}}>
+                <Header title="技术博客"/>
+                <ListView navigator={this.props.navigator}/>
             </View>
         )
     }
