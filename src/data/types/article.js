@@ -11,6 +11,7 @@ import {
     GraphQLBoolean as BooleanType,
     GraphQLNonNull as NonNull,
     GraphQLID as ID,
+    GraphQLInt as Int
 } from 'graphql';
 
 const ArticleType = new ObjectType({
@@ -22,7 +23,9 @@ const ArticleType = new ObjectType({
         imageUrl: {type: StringType},
         thumbnailUrl: {type: StringType},
         summary: {type: StringType},
-        content: {type: StringType}
+        content: {type: StringType},
+        createTime: {type: Int},
+        editTime: {type: Int}
     }
   }
 })

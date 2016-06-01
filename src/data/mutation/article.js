@@ -19,20 +19,23 @@ const article = {
         imageUrl: {type: StringType},
         thumbnailUrl: {type: StringType},
         summary: {type: StringType},
-        content: {type: new NonNull(StringType)},
-        isDelete: {type: BooleanType}
+        content: {type: new NonNull(StringType)}
     },
 
     resolve: (root, args) => {
         return new Promise((resolve, reject) => {
             if (!args.id) {
+                var time = new Date();
+
                 var book = new Book({
                     id:args.id,
                     title:args.title,
                     imageUrl:args.imageUrl,
                     thumbnailUrl:args.thumbnailUrl,
                     summary:args.summary,
-                    content:args.content
+                    content:args.content,
+                    createTime:time.getTime(),
+                    editTime:time.getTime()
                 })
 
                 if (book.id) {
@@ -57,13 +60,17 @@ const article = {
                         else resolve(book)
                     })
                 } else {
+                    var time = new Date();
+
                     book = new Book({
                         id:args.id,
                         title:args.title,
                         imageUrl:args.imageUrl,
                         thumbnailUrl:args.thumbnailUrl,
                         summary:args.summary,
-                        content:args.content
+                        content:args.content,
+                        createTime:time.getTime(),
+                        editTime:time.getTime()
                     })
 
                     if (book.id) {
