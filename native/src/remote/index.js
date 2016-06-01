@@ -9,10 +9,7 @@ const initialHeader = {
 };
 
 function loadRemoteBooks(){
-    const request = {
-      query:"{ books { id title imageUrl thumbnailUrl summary content } }"
-    };
-    return requestRemoteToJson(address.getBookListUrl(),request)
+    return requestRemoteToJson(address.getBookListUrl())
         .then(data =>{
             return data.data.books
         })
@@ -24,7 +21,7 @@ function requestRemoteToJson(url,object){
     return window.fetch(url,{
             method:object ?'POST':'GET',
             headers:initialHeader,
-            body:'query { books { id,title } }'})
+            body:object ? JSON.stringify(object) : null})
         .then(checkStatus)
         .then(parseJSON)
 }
