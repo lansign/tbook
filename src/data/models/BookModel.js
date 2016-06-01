@@ -16,7 +16,9 @@ const Book = mongoose.model('Book', {
     imageUrl: String,
     thumbnailUrl: String,
     summary: String,
-    content: String
+    content: String,
+    createTime: int,
+    editTime: int
 })
 
 export default Book;

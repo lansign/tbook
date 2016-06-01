@@ -17,19 +17,25 @@ import login from './login';
 import register from './register';
 import content from './content';
 import error from './error';
+import articleList from './article'
+import articleDetail from './article/Edit'
+import articleEdit from './article/Detail'
 
 export default {
 
-  path: '/',
+    path: '/',
 
-  children: [
-    home,
-    contact,
-    login,
-    register,
-    content,
-    error,
-  ],
+    children: [
+        home,
+        contact,
+        login,
+        register,
+        content,
+        error,
+        articleList,
+        articleEdit,
+        articleDetail
+    ],
 
   async action({ next, render, context }) {
     const component = await next();

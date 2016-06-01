@@ -12,7 +12,7 @@ import Book from '../models/BookModel'
 const articleDelete = {
     type: ArticleType,
     args:{
-        id: {type: new NonNull(ID)},
+        id: {type: new NonNull(ID)}
     },
 
     resolve: (root, args) => {
