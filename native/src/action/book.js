@@ -5,14 +5,23 @@
 "use strict";
 
 import {BOOK} from './types'
+import {loadRemoteBooks} from '../remote'
 
-function update(){
-    return{
-        type:BOOK.UPDATE,
-        data:[1,2,3,4,5,6,7,8,9]
-    }
+function loadBooks(){
+
+    return dispatch =>{
+        loadRemoteBooks()
+            .then(data =>{
+                dispatch({
+                    type:BOOK.LOADED_BOOKS,
+                    data
+                })
+            },error =>{
+                console.log(error)
+            })
+    };
 }
 
 export default{
-    update
+    loadBooks
 }

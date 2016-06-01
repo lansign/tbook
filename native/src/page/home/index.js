@@ -12,8 +12,9 @@ import Header from'TBHeader'
 import ListView from './BookListView'
 import {connect} from 'react-redux'
 
+
 import {
-    update
+    loadBooks
 } from '../../action'
 
 class HomePage extends Component{
@@ -21,10 +22,11 @@ class HomePage extends Component{
     // 构造
     constructor(props) {
         super(props);
-
-        this.props.dispatch(update())
     }
 
+    componentDidMount() {
+        this.props.dispatch(loadBooks())
+    }
 
     render() {
         return(

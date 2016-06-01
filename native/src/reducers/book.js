@@ -13,7 +13,7 @@ const initializeState = {
 export default function book(state = initializeState,action){
 
     switch (action.type){
-        case BOOK.UPDATE:
+        case BOOK.LOADED_BOOKS:
             return Object.assign({},state,{
                 books:action.data
             });

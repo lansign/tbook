@@ -3,5 +3,5 @@
  */
 
 export const BOOK = {
-    UPDATE:'UPDATE'
+    LOADED_BOOKS:'LOADED_BOOKS'
 };
