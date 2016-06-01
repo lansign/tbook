@@ -13,6 +13,9 @@ function loadRemoteBooks(){
       query:"{ books { id title imageUrl thumbnailUrl summary content } }"
     };
     return requestRemoteToJson(address.getBookListUrl(),request)
+        .then(data =>{
+            return data.data.books
+        })
 }
 
 
