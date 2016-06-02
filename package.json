@@ -149,14 +149,22 @@
     "extends": "stylelint-config-standard",
     "rules": {
       "string-quotes": "single",
-      "selector-pseudo-class-no-unknown": [true, { "ignorePseudoClasses": ["global", "local"] }]
+      "selector-pseudo-class-no-unknown": [
+        true,
+        {
+          "ignorePseudoClasses": [
+            "global",
+            "local"
+          ]
+        }
+      ]
     }
   },
   "scripts": {
     "eslint": "eslint src tools",
     "stylelint": "stylelint \"src/**/*.css\"",
     "lint": "npm run eslint && npm run stylelint",
-    "test": "mocha \"src/**/*.test.js\" --require test/setup.js --compilers js:babel-register",
+    "test": "mocha \"test/*.test.js\" --require test/setup.js --compilers js:babel-register",
     "test:watch": "npm run test -- --reporter min --watch",
     "clean": "babel-node tools/run clean",
     "copy": "babel-node tools/run copy",
@@ -166,7 +174,6 @@
     "render": "babel-node tools/run render",
     "start": "babel-node tools/run start"
   },
-
   "keywords": [
     "Node.js",
     "Express",
@@ -177,7 +184,6 @@
     "Webpack",
     "Browsersync"
   ],
-
   "author": "lansign",
   "bugs": {
     "url": "https://github.com/lansign/ubook/issues"

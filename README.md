@@ -52,4 +52,4 @@ curl -XPOST -H "Content-Type:application/graphql"  -d 'mutation {articleDelete(i
 curl -XPOST -H "Content-Type:application/graphql" -d 'query { books { id,title } }' http://localhost:3000/graphql
 ```
 
-> Note:也可以直接进入图形页面进行测试`http://localhost:3000/graphql`
+> Note:也可以直接进入图形页面进行操作`http://localhost:3000/graphql`

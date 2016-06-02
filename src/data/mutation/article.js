@@ -9,7 +9,7 @@ import {
     GraphQLNonNull as NonNull,
     GraphQLID as ID
 } from 'graphql';
-import Book from '../models/BookModel'
+import BookModel from '../models/BookModel'
 
 const article = {
     type: ArticleType,
@@ -24,11 +24,10 @@ const article = {
 
     resolve: (root, args) => {
         return new Promise((resolve, reject) => {
-            if (!args.id) {
-                var time = new Date();
+            let time = new Date();
 
-                var book = new Book({
-                    id:args.id,
+            var addBook = () => {
+                var book = new BookModel({
                     title:args.title,
                     imageUrl:args.imageUrl,
                     thumbnailUrl:args.thumbnailUrl,
@@ -38,53 +37,30 @@ const article = {
                     editTime:time.getTime()
                 })
 
-                if (book.id) {
-                    book._id = book.id
-                } else {
-                    book.id = book._id
-                }
-
+                book.id = book._id
                 book.save(function (err) {
+                    console.log("add article", book)
                     if (err) reject(err)
                     else resolve(book)
                 })
-                return;
             }
 
-            let bookQuery = Book.find({ _id: args.id}, (err, book) => {
-                console.log("mutation article", book)
-
-                if (book) {
-                    bookQuery.update((err, book) => {
-                        if (err) reject(err)
-                        else resolve(book)
-                    })
-                } else {
-                    var time = new Date();
-
-                    book = new Book({
-                        id:args.id,
-                        title:args.title,
-                        imageUrl:args.imageUrl,
-                        thumbnailUrl:args.thumbnailUrl,
-                        summary:args.summary,
-                        content:args.content,
-                        createTime:time.getTime(),
-                        editTime:time.getTime()
-                    })
-
-                    if (book.id) {
-                        book._id = book.id
-                    } else {
-                        book.id = book._id
-                    }
-
-                    book.save(function (err) {
-                        if (err) reject(err)
-                        else resolve(book)
-                    })
-                }
-            })
+            if (args.id) {
+                BookModel.findByIdAndUpdate(args.id, {$set:{
+                    title:args.title,
+                    imageUrl:args.imageUrl,
+                    thumbnailUrl:args.thumbnailUrl,
+                    summary:args.summary,
+                    content:args.content,
+                    editTime:time.getTime()
+                }}, {new: true}, function(err, book){
+                    console.log("update article", book)
+                    if (err) reject(err)
+                    else resolve(book)
+                })
+            } else {
+                addBook();
+            }
         })
     }
 };

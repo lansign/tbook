@@ -7,7 +7,7 @@ import {
     GraphQLNonNull as NonNull,
     GraphQLID as ID
 } from 'graphql';
-import Book from '../models/BookModel'
+import BookModel from '../models/BookModel'
 
 const articleDelete = {
     type: ArticleType,
@@ -17,7 +17,7 @@ const articleDelete = {
 
     resolve: (root, args) => {
         return new Promise((resolve, reject) => {
-            Book.find({ _id: args.id}).remove((err, book) => {
+            BookModel.findByIdAndRemove(args.id, (err, book) => {
                 if (err) reject(err)
                 else resolve(book)
             });

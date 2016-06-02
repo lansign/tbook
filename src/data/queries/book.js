@@ -9,14 +9,13 @@
 
 import ArticleType from '../types/Article';
 import { GraphQLList as List } from 'graphql';
-import Book from '../models/BookModel'
+import BookModel from '../models/BookModel'
 
 const books = {
     type: new List(ArticleType),
     resolve: function resolve() {
         return new Promise(function (resolve, reject) {
-            Book.find(function (err, books) {
-                console.log("query books", books)
+            BookModel.find(function (err, books) {
                 if (err) reject(err);else resolve(books);
             });
         });
