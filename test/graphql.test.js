@@ -82,19 +82,19 @@ describe('graphql query', () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                query: `query {article{id,title,content,createTime}}`
+                query: 'query { books { id,title,content,createTime } }'
             }),
             credentials: 'include'
         }).then(resp => {
             expect(resp.status).to.be.equal(200)
             return resp.json()
-        }).then(datas => {
-            console.log(datas)
-            for (var data in datas) {
-                expect(data.data.article.id).to.not.undefined
-                expect(data.data.article.title).to.not.undefined
-                expect(data.data.article.content).to.not.undefined
-                expect(data.data.article.createTime).to.not.undefined
+        }).then(data => {
+            var books = data.data.books;
+            for (var index in books) {
+                expect(books[index].id).to.be.a('string')
+                expect(books[index].title).to.be.a('string')
+                expect(books[index].content).to.be.a('string')
+                expect(books[index].createTime).to.be.a('Number')
             }
 
             done()
