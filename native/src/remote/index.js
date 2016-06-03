@@ -5,11 +5,15 @@
 import * as address from './address';
 
 const initialHeader = {
-    'Content-Type':'application/graphql'
+    Accept: 'application/json',
+    'Content-Type': 'application/json'
 };
 
 function loadRemoteBooks(){
-    return requestRemoteToJson(address.getBookListUrl())
+    const body = {
+        query: 'query { books { id,title,content,createTime } }'
+    };
+    return requestRemoteToJson(address.getBookListUrl(),body)
         .then(data =>{
             return data.data.books
         })

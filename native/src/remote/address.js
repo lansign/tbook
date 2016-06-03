@@ -7,7 +7,7 @@
 const SERVER_HOST = 'http://localhost:3000/graphql';
 
 function getBookListUrl(){
-    return SERVER_HOST + '?query={ books { id,title,imageUrl,thumbnailUrl,summary,content} }';
+    return SERVER_HOST;
 }
 
 module.exports = {
