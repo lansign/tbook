@@ -1,0 +1,21 @@
+@import '../../../components/variables.css';
+
+html, body { height: 100%; background: lightgrey;}
+
+.root {
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.inputFrame {
+    float: left;
+    width: 50%;
+    height: 100%;
+}
+
+.showFrame {
+    width: 50%;
+}
