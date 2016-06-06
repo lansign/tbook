@@ -11,7 +11,7 @@ const initialHeader = {
 
 function loadRemoteBooks(){
     const body = {
-        query: 'query { books { id,title,content,createTime } }'
+        query: 'query { books { id,title,content,createTime,imageUrl} }'
     };
     return requestRemoteToJson(address.getBookListUrl(),body)
         .then(data =>{

@@ -15,17 +15,20 @@ import {Text} from 'TBText'
 export default class CardWrapper extends React.Component{
 
     render(){
+
+        const {data} = this.props;
+        const date = new Date(data.createTime || 0);
         return(
-            <TouchableOpacity onPress={this.props.onPress}>
+            <TouchableOpacity onPress={() => this.props.onPress(data)}>
                 <View style={styles.rowBox}>
                     <View style={styles.titleBox}>
                         <Text numberOfLines={2} style={styles.title}>
-                            文章标题1,文章标题1,文章标题1,文章标题1,文章标题1文章标题1文章标题1文章标题1文章标题1文章标题1
+                            {data.title}
                         </Text>
 
                         <View style={styles.moreBox}>
                             <Text>
-                                1024人阅读
+                                {date.getFullYear()}-{date.getMonth() + 1}-{date.getDate()}
                             </Text>
 
                             <Text>
@@ -34,7 +37,9 @@ export default class CardWrapper extends React.Component{
                         </View>
                     </View>
 
-                    <Image style={{width: 84,height: 70}} source={{uri:'http://img.alicdn.com/tps/TB1kaazMpXXXXacXFXXXXXXXXXX-900-500.jpg'}}/>
+                    {data.imageUrl?
+                        <Image style={{width: 84,height: 70}} source={{uri:data.imageUrl}}/>
+                        :null}
                 </View>
                 <View style={styles.split}/>
             </TouchableOpacity>

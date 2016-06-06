@@ -16,6 +16,8 @@ import Header from 'TBHeader'
 export default class BookDetail extends React.Component{
 
     render(){
+        const {title,content} = this.props.data;
+
         return(
             <View style={{flex:1}}>
                 <Header leftItem={{icon:require('../../common/img/back.png'),onPress:() =>{
@@ -23,7 +25,7 @@ export default class BookDetail extends React.Component{
                 }}}/>
 
                 <Text>
-                    文章正文
+                    {content}
                 </Text>
             </View>
         )
