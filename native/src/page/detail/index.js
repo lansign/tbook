@@ -23,9 +23,9 @@ export default class BookDetail extends React.Component{
 
         return(
             <View style={{flex:1}}>
-                <Header leftItem={{icon:require('../../common/img/back.png'),onPress:() =>{
+                <Header leftItem={{icon:require('../../common/img/back_white.png'),onPress:() =>{
                     this.props.navigator.pop()
-                }}}/>
+                }}} style={{backgroundColor: '#d94b40'}}/>
 
                 <ScrollView style={{flex:1}}>
 
