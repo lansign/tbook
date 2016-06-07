@@ -45,7 +45,7 @@ class TBHeaderAndroid extends Component{
         }
 
         return(
-            <View style={styles.toolbarContainer}>
+            <View style={[styles.toolbarContainer,this.props.style]}>
                 <ToolbarAndroid
                     style={styles.toolbar}
                     navIcon={leftItem && leftItem.icon}
@@ -63,7 +63,7 @@ class TBHeaderIOS extends Component{
     render(){
         const {title,leftItem,rightItem} = this.props;
         return(
-            <View style={styles.header}>
+            <View style={[styles.header,this.props.style]}>
 
                 <View style={styles.leftItem}>
                     <ItemWrapperIOS {...leftItem}/>
@@ -156,7 +156,7 @@ var styles = StyleSheet.create({
         height: HEADER_HEIGHT - STATUS_BAR_HEIGHT,
     },
     titleText:{
-        color: '#000',
+        color: '#FFF',
         fontWeight: 'bold',
         fontSize: 20,
     },

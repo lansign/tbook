@@ -31,7 +31,7 @@ class HomePage extends Component{
     render() {
         return(
             <View style={{flex:1}}>
-                <Header title="技术博客"/>
+                <Header title="技术博客" style={{backgroundColor: '#d94b40'}}/>
                 <ListView navigator={this.props.navigator} data={this.props.book.books}/>
             </View>
         )
