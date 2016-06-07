@@ -2,11 +2,11 @@
  * Created by lan on 16/6/2.
  */
 
-import Detail from './../detail';
 import React, { Component, PropTypes }  from 'react';
-import withStyles from '../../../../node_modules/isomorphic-style-loader/lib/withStyles';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Add.css';
 import MarkdownIt from 'markdown-it'
+import fetch from '../../../core/fetch'
 
 const md = new MarkdownIt();
 
@@ -32,11 +32,13 @@ class Add extends Component {
                     type="text"
                     placeholder="Say something..."
                     onChange={(e) => {
-                            console.log("text", e.target.value)
                             this.setState({text: e.target.value})
                         }
                     }/>
                 <span className={s.inputFrame} dangerouslySetInnerHTML= {this.rawMarkup()}/>
+                <button className={s.button} type="submit" onClick={() => {this.send(this.state.text)}}>
+                    发布
+                </button>
             </div>
         );
     }
@@ -44,6 +46,38 @@ class Add extends Component {
     rawMarkup() {
         return { __html: md.render(this.state.text) };
     }
+
+    send(text) {
+        var requestText = text.replace(/\n/g,"\\n")
+
+        var json = JSON.stringify({
+            query: `mutation{article(title: "test", content: "${requestText}") {id}}`
+        });
+        console.log("send json ", json)
+
+        fetch('/graphql', {
+            method: 'post',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: json,
+            credentials: 'include'
+        }).then(resp => {
+            return resp.json()
+        }).then(data => {
+            console.log(data)
+            if (data.data.article.id) {
+                alert("发布成功!")
+            } else {
+                alert("发布失败!")
+            }
+        }).catch(err => {
+            alert(err)
+        })
+    }
+
+
 }
 
 export default withStyles(s)(Add);
