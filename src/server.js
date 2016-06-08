@@ -66,6 +66,31 @@ app.get('/login/facebook/return',
     res.redirect('/');
   }
 );
+app.get('/login/github',
+    passport.authenticate('github', { scope: [ 'user:email' ], session: false })
+);
+
+app.get('/login/github/callback',
+    passport.authenticate('github', { failureRedirect: '/login' , session: false}),
+    (req, res) => {
+      const expiresIn = 60 * 60 * 24 * 180; // 180 days
+      const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
+      res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
+      res.redirect('/');
+    }
+);
+
+app.get('/login/google',
+    passport.authenticate('google', { scope: ['profile'], session: false }));
+
+app.get('/login/google/callback',
+    passport.authenticate('google', { failureRedirect: '/login' , session: false}),
+    function(req, res) {
+      const expiresIn = 60 * 60 * 24 * 180; // 180 days
+      const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
+      res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
+      res.redirect('/');
+    });
 
 //
 // Register API middleware
@@ -75,11 +100,6 @@ app.use('/graphql', expressGraphQL(req => ({
   graphiql: true,
   rootValue: { request: req },
   pretty: process.env.NODE_ENV !== 'production',
-  formatError: error => ({
-    message: error.message,
-    locations: error.locations,
-    stack: error.stack
-  })
 })));
 
 //

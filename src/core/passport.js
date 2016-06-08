@@ -15,7 +15,9 @@
 
 import passport from 'passport';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
-import { User, UserLogin, UserClaim, UserProfile } from '../data/models';
+import { Strategy as GitHubStrategy } from 'passport-github2';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth2';
+import UserModel from '../data/models/UserModel';
 import { auth as config } from '../config';
 
 /**
@@ -24,103 +26,50 @@ import { auth as config } from '../config';
 passport.use(new FacebookStrategy({
   clientID: config.facebook.id,
   clientSecret: config.facebook.secret,
-  callbackURL: '/login/facebook/return',
+  callbackURL: 'http://localhost:3001/login/facebook/return',
   profileFields: ['name', 'email', 'link', 'locale', 'timezone'],
-  passReqToCallback: true,
-}, (req, accessToken, refreshToken, profile, done) => {
-  /* eslint-disable no-underscore-dangle */
-  const loginName = 'facebook';
-  const claimType = 'urn:facebook:access_token';
-  const fooBar = async () => {
-    if (req.user) {
-      const userLogin = await UserLogin.findOne({
-        attributes: ['name', 'key'],
-        where: { name: loginName, key: profile.id },
-      });
-      if (userLogin) {
-        // There is already a Facebook account that belongs to you.
-        // Sign in with that account or delete it, then link it with your current account.
-        done();
-      } else {
-        const user = await User.create({
-          id: req.user.id,
-          email: profile._json.email,
-          logins: [
-            { name: loginName, key: profile.id },
-          ],
-          claims: [
-            { type: claimType, value: profile.id },
-          ],
-          profile: {
-            displayName: profile.displayName,
-            gender: profile._json.gender,
-            picture: `https://graph.facebook.com/${profile.id}/picture?type=large`,
-          },
-        }, {
-          include: [
-            { model: UserLogin, as: 'logins' },
-            { model: UserClaim, as: 'claims' },
-            { model: UserProfile, as: 'profile' },
-          ],
-        });
-        done(null, {
-          id: user.id,
-          email: user.email,
-        });
-      }
-    } else {
-      const users = await User.findAll({
-        attributes: ['id', 'email'],
-        where: { '$logins.name$': loginName, '$logins.key$': profile.id },
-        include: [
-          {
-            attributes: ['name', 'key'],
-            model: UserLogin,
-            as: 'logins',
-            required: true,
-          },
-        ],
-      });
-      if (users.length) {
-        done(null, users[0]);
-      } else {
-        let user = await User.findOne({ where: { email: profile._json.email } });
-        if (user) {
-          // There is already an account using this email address. Sign in to
-          // that account and link it with Facebook manually from Account Settings.
-          done(null);
-        } else {
-          user = await User.create({
-            email: profile._json.email,
-            emailVerified: true,
-            logins: [
-              { name: loginName, key: profile.id },
-            ],
-            claims: [
-              { type: claimType, value: accessToken },
-            ],
-            profile: {
-              displaynName: profile.displayName,
-              gender: profile._json.gender,
-              picture: `https://graph.facebook.com/${profile.id}/picture?type=large`,
-            },
-          }, {
-            include: [
-              { model: UserLogin, as: 'logins' },
-              { model: UserClaim, as: 'claims' },
-              { model: UserProfile, as: 'profile' },
-            ],
-          });
-          done(null, {
-            id: user.id,
-            email: user.email,
-          });
-        }
-      }
-    }
-  };
+}, (accessToken, refreshToken, profile, done) => callback("facebook", accessToken, refreshToken, profile, done)))
 
-  fooBar().catch(done);
-}));
+passport.use(new GitHubStrategy({
+      clientID: config.github.id,
+      clientSecret: config.github.secret,
+      callbackURL: "http://localhost:3001/login/github/callback"
+    }, (accessToken, refreshToken, profile, done) => callback("github", accessToken, refreshToken, profile, done)))
+
+passport.use(new GoogleStrategy({
+      clientID: config.google.id,
+      clientSecret: config.google.secret,
+      callbackURL: "http://localhost:3001/login/google/callback"
+    }, (accessToken, refreshToken, profile, done) => callback("google", accessToken, refreshToken, profile, done)))
+
+function callback(source, accessToken, refreshToken, profile, done) {
+  console.log("profile", profile);
+  UserModel.findOne({source: source, sourceId: profile.id}, function (err, user) {
+    if (err) {
+      done(err, null);
+    } else if (user) {
+      done(null, user);
+    } else {
+      var newUser = new UserModel({
+        source: source,
+        sourceId: profile.id,
+        email: profile._json.email,
+        emailConfirmed: false,
+        displayName: profile.displayName,
+        picture: `https://graph.facebook.com/${profile.id}/picture?type=large`,
+        accessToken: accessToken,
+        refreshToken: refreshToken
+      })
+
+      newUser.save(function (err) {
+        if (err) {
+          done(err, null);
+        } else {
+          done(null, newUser);
+        }
+      })
+    }
+  });
+}
 
 export default passport;
