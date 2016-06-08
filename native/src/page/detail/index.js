@@ -15,6 +15,9 @@ import {
 import {Text} from 'TBText'
 import Header from 'TBHeader'
 
+import Markdown from '@client/react-native-markdown-fork';
+
+
 export default class BookDetail extends React.Component{
 
     render(){
@@ -51,9 +54,9 @@ export default class BookDetail extends React.Component{
                         </Text>
                     </View>
 
-                    <Text >
-                        {content}
-                    </Text>
+                    <Markdown>
+                        { content }
+                    </Markdown>
 
                 </ScrollView>
             </View>
