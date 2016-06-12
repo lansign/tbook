@@ -53,10 +53,10 @@ function callback(source, accessToken, refreshToken, profile, done) {
       var newUser = new UserModel({
         source: source,
         sourceId: profile.id,
-        email: profile._json.email,
+        email: profile._json.email,//only for github
         emailConfirmed: false,
         displayName: profile.displayName,
-        picture: `https://graph.facebook.com/${profile.id}/picture?type=large`,
+        picture: profile._json.avatar_url,//only for github
         accessToken: accessToken,
         refreshToken: refreshToken
       })

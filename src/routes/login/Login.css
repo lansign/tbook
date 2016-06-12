@@ -15,7 +15,7 @@
 
 .container {
   margin: 0 auto;
-  padding: 0 0 40px;
+  padding: 20px 20px 40px;
   max-width: 380px;
 }
 
@@ -111,6 +111,12 @@
 
 .twitter:hover {
   background: #2795e9;
+}
+
+.github {
+  border-color: #444444;
+  background: #444444;
+  composes: button;
 }
 
 .icon {

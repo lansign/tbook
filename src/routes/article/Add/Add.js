@@ -5,10 +5,9 @@
 import React, { Component, PropTypes }  from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Add.css';
-import MarkdownIt from 'markdown-it'
 import fetch from '../../../core/fetch'
 
-const md = new MarkdownIt();
+const md = require('marked');
 
 class Add extends Component {
 
@@ -44,7 +43,7 @@ class Add extends Component {
     }
 
     rawMarkup() {
-        return { __html: md.render(this.state.text) };
+        return { __html: md(this.state.text) };
     }
 
     send(text) {
