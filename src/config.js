@@ -18,7 +18,7 @@ export const databaseUrl = process.env.DATABASE_URL || 'sqlite:database.sqlite';
 export const analytics = {
 
   // https://analytics.google.com/
-  google: { trackingId: process.env.GOOGLE_TRACKING_ID || 'UA-XXXXX-X' },
+  google: { trackingId: 'UA-79209823-1' },
 
 };
 
@@ -28,14 +28,14 @@ export const auth = {
 
   // https://developers.facebook.com/
   facebook: {
-    id: '186244551745631',
-    secret: 'a970ae3240ab4b9b8aae0f9f0661c6fc',
+    id: 'xxx',
+    secret: 'xxx',
   },
 
   // https://cloud.google.com/console/project
   google: {
-    id: '251410730550-ahcg0ou5mgfhl8hlui1urru7jn5s12km.apps.googleusercontent.com',
-    secret: 'Y8yR9yZAhm9jQ8FKAL8QIEcd',
+    id: '209681579571-mksqtt876daqpsa5083mic5bmd1s3967.apps.googleusercontent.com',
+    secret: 't_mT4Xf3wDwTHzfJl7PHk-2k',
   },
 
 
