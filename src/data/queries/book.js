@@ -7,7 +7,7 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import ArticleType from '../types/Article';
+import ArticleType from '../types/article';
 import { GraphQLList as List } from 'graphql';
 import BookModel from '../models/BookModel'
 

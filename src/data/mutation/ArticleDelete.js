@@ -2,7 +2,7 @@
  * Created by lan on 16/5/31.
  */
 
-import ArticleType from '../types/Article';
+import ArticleType from '../types/article';
 import {
     GraphQLNonNull as NonNull,
     GraphQLID as ID

@@ -19,7 +19,7 @@ import content from './content';
 import error from './error';
 import articleList from './article'
 import articleDetail from './article/Edit'
-import articleEdit from './article/Detail'
+import articleEdit from './article/detail'
 import articleAdd from './article/Add/index'
 
 export default {

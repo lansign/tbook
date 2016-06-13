@@ -5,7 +5,7 @@
 
 import App from '../../components/App'
 import Edit from './Edit'
-import Detail from './Detail'
+import Detail from './detail'
 import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 

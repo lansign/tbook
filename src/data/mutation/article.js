@@ -2,7 +2,7 @@
  * Created by lan on 16/5/31.
  */
 
-import ArticleType from '../types/Article';
+import ArticleType from '../types/article';
 import {
     GraphQLString as StringType,
     GraphQLBoolean as BooleanType,
