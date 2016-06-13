@@ -11,16 +11,11 @@ export default {
     path: '/article/add',
 
     action({ render, context, user}) {
-        console.log("----user----", user)
-        //if (user) {
-            return render(
-                <App context={context}>
-                    <Add context={context}/>
-                </App>
-            );
-        //}
-
-        //return render(undefined, 401);
+        return render(
+            <App context={context}>
+                <Add context={context}/>
+            </App>,
+        user ? 200 : 401);
     }
 
 };

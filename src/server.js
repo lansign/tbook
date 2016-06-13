@@ -107,7 +107,7 @@ app.get('*', async (req, res, next) => {
 
     var user
     try {
-      user = await jwt.verify(req.cookies.id_token, auth.jwt.secret)
+      user = await jwt.verify(req.cookies.id_token, auth.jwt.secret)._doc.token
     } catch (err) {
       //ignore
     }
@@ -122,8 +122,7 @@ app.get('*', async (req, res, next) => {
         setMeta: (key, value) => (data[key] = value),
       },
       render(component, status = 200) {
-        console.log("---render---", status)
-        if (status === 401) {//需要登录的页面,user为空
+        if (status == 401) {//需要登录的页面,user为空
           res.redirect("/login")
           return false;
         }
@@ -136,7 +135,6 @@ app.get('*', async (req, res, next) => {
       },
     });
 
-    console.log("success", success)
     if (success) {
       res.status(statusCode);
       res.send(template(data));
