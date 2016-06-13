@@ -105,10 +105,11 @@ app.get('*', async (req, res, next) => {
       data.trackingId = analytics.google.trackingId;
     }
 
+    console.log("user", req.user._doc)
     var success = await match(routes, {
       path: req.path,
       query: req.query,
-      user:req.user ? undefined : req.user._doc,
+      user:req.user ? req.user._doc : undefined,
       context: {
         insertCss: styles => css.push(styles._getCss()), // eslint-disable-line no-underscore-dangle
         setTitle: value => (data.title = value),
