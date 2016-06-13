@@ -20,7 +20,7 @@ const articleDelete = {
             BookModel.findById(args.id, (err, book) => {
                 if (err) {
                     reject(err)
-                } else if (book.author === root.request.user._doc._id) {
+                } else if (book && book.author === root.request.user._doc._id) {
                     BookModel.findByIdAndRemove(args.id, (err, book) => {
                         if (err) {
                             reject(err)
