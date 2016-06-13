@@ -26,7 +26,8 @@ const ArticleType = new ObjectType({
         summary: {type: StringType},
         content: {type: StringType},
         createTime: {type: Float},
-        editTime: {type: Float}
+        editTime: {type: Float},
+        author:{type:StringType}
     }
   }
 })
