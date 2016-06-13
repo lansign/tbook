@@ -16,7 +16,7 @@ import me from './queries/me'
 import content from './queries/content'
 import news from './queries/news'
 import books from './queries/book'
-import article from './mutation/Article'
+import article from './mutation/article'
 import articleDelete from './mutation/ArticleDelete'
 
 const schema = new Schema({
