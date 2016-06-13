@@ -6,6 +6,7 @@ import React, { Component, PropTypes }  from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Add.css';
 import fetch from '../../../core/fetch'
+import Header from './Add.Header'
 
 const md = require('marked');
 
@@ -27,17 +28,20 @@ class Add extends Component {
     render() {
         return (
             <div id="add" className={s.root}>
-                <textarea className={s.inputFrame}
-                    type="text"
-                    placeholder="Say something..."
-                    onChange={(e) => {
-                            this.setState({text: e.target.value})
-                        }
-                    }/>
-                <span className={s.inputFrame} dangerouslySetInnerHTML= {this.rawMarkup()}/>
-                <button className={s.button} type="submit" onClick={() => {this.send(this.state.text)}}>
-                    发布
-                </button>
+                <Header />
+                <div className={s.center}>
+                    <textarea className={s.inputFrame}
+                        type="text"
+                        placeholder="Say something..."
+                        onChange={(e) => {
+                                this.setState({text: e.target.value})
+                            }
+                        }/>
+                    <span className={s.inputFrame} dangerouslySetInnerHTML= {this.rawMarkup()}/>
+                    <button className={s.button} type="submit" onClick={() => {this.send(this.state.text)}}>
+                        发布
+                    </button>
+                </div>
             </div>
         );
     }
