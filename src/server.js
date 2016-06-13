@@ -107,7 +107,7 @@ app.get('*', async (req, res, next) => {
 
     var user
     try {
-      user = await jwt.verify(req.cookies.id_token, auth.jwt.secret)._doc.token
+      user = await jwt.verify(req.cookies.id_token, auth.jwt.secret)._doc
     } catch (err) {
       //ignore
     }
