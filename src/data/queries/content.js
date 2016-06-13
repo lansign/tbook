@@ -12,7 +12,6 @@ import { join } from 'path';
 import Promise from 'bluebird';
 import jade from 'jade';
 import fm from 'front-matter';
-import MarkdownIt from 'markdown-it';
 
 import {
   GraphQLString as StringType,
@@ -21,7 +20,7 @@ import {
 
 import ContentType from '../types/ContentType';
 
-const md = new MarkdownIt();
+const md = require('marked');
 
 // A folder with Jade/Markdown/HTML content pages
 const CONTENT_DIR = join(__dirname, './content');
@@ -35,7 +34,7 @@ const parseContent = (path, fileContent, extension) => {
       htmlContent = jade.render(fmContent.body);
       break;
     case '.md':
-      htmlContent = md.render(fmContent.body);
+      htmlContent = md(fmContent.body);
       break;
     case '.html':
       htmlContent = fmContent.body;

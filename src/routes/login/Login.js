@@ -35,7 +35,7 @@ class Login extends Component {
         <div className={s.root}>
           <div className={s.container}>
             <div className={s.formGroup}>
-              <a className={s.github} href="/login/google">
+              <a className={s.github} href="/login/github">
                 <svg
                     className={s.icon}
                     height="30"

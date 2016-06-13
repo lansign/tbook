@@ -10,12 +10,12 @@ export default {
 
     path: '/article/add',
 
-    action({ render, context }) {
+    action({ render, context, user}) {
         return render(
             <App context={context}>
                 <Add context={context}/>
-            </App>
-        );
+            </App>,
+        user ? 200 : 401);
     }
 
 };

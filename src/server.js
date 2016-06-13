@@ -105,15 +105,28 @@ app.get('*', async (req, res, next) => {
       data.trackingId = analytics.google.trackingId;
     }
 
-    await match(routes, {
+    var user
+    try {
+      user = await jwt.verify(req.cookies.id_token, auth.jwt.secret)._doc
+    } catch (err) {
+      //ignore
+    }
+
+    var success = await match(routes, {
       path: req.path,
       query: req.query,
+      user:user,
       context: {
         insertCss: styles => css.push(styles._getCss()), // eslint-disable-line no-underscore-dangle
         setTitle: value => (data.title = value),
         setMeta: (key, value) => (data[key] = value),
       },
       render(component, status = 200) {
+        if (status == 401) {//需要登录的页面,user为空
+          res.redirect("/login")
+          return false;
+        }
+
         css = [];
         statusCode = status;
         data.body = ReactDOM.renderToString(component);
@@ -122,8 +135,11 @@ app.get('*', async (req, res, next) => {
       },
     });
 
-    res.status(statusCode);
-    res.send(template(data));
+    if (success) {
+      res.status(statusCode);
+      res.send(template(data));
+    }
+
   } catch (err) {
     next(err);
   }
