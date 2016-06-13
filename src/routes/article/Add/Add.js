@@ -10,6 +10,10 @@ import Header from './Add.Header'
 
 const md = require('marked');
 
+var img = {
+    edit: require('./img/edit@1x.png')
+};
+
 class Add extends Component {
 
     // 构造
@@ -37,10 +41,15 @@ class Add extends Component {
                                 this.setState({text: e.target.value})
                             }
                         }/>
-                    <span className={s.inputFrame} dangerouslySetInnerHTML= {this.rawMarkup()}/>
-                    <button className={s.button} type="submit" onClick={() => {this.send(this.state.text)}}>
-                        发布
-                    </button>
+
+                    <div className={s.showFrame}>
+                        <span className={s.showFrame_span}  dangerouslySetInnerHTML= {this.rawMarkup()}/>
+                        <button className={s.button} type="submit" onClick={() => {this.send(this.state.text)}}>
+                            <img style={{marginRight:'10px'}} src={img.edit} />
+
+                            发布
+                        </button>
+                    </div>
                 </div>
             </div>
         );
