@@ -33,7 +33,7 @@ passport.use(new FacebookStrategy({
 passport.use(new GitHubStrategy({
       clientID: config.github.id,
       clientSecret: config.github.secret,
-      callbackURL: "http://172.16.6.73:3001/login/github/callback"
+      callbackURL: "http://localhost:3001/login/github/callback"
     }, (accessToken, refreshToken, profile, done) => callback("github", accessToken, refreshToken, profile, done)))
 
 passport.use(new GoogleStrategy({
