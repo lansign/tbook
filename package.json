@@ -29,7 +29,6 @@
     "isomorphic-style-loader": "1.0.0",
     "jade": "1.11.0",
     "jsonwebtoken": "7.0.0",
-    "markdown-it": "6.0.2",
     "marked": "^0.3.5",
     "mongoose": "4.4.19",
     "node-fetch": "1.5.2",
@@ -41,9 +40,7 @@
     "pretty-error": "2.0.0",
     "react": "15.1.0",
     "react-dom": "15.1.0",
-    "sequelize": "3.23.2",
     "source-map-support": "0.4.0",
-    "sqlite3": "3.1.4",
     "universal-router": "1.2.1",
     "whatwg-fetch": "1.0.0"
   },

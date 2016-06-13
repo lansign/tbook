@@ -19,7 +19,6 @@ import ReactDOM from 'react-dom/server';
 import { match } from 'universal-router';
 import PrettyError from 'pretty-error';
 import passport from './core/passport';
-import models from './data/models';
 import schema from './data/schema';
 import routes from './routes';
 import assets from './assets'; // eslint-disable-line import/no-unresolved
@@ -54,43 +53,33 @@ app.use(expressJwt({
 }));
 app.use(passport.initialize());
 
-app.get('/login/facebook',
-  passport.authenticate('facebook', { scope: ['email', 'user_location'], session: false })
-);
-app.get('/login/facebook/return',
-  passport.authenticate('facebook', { failureRedirect: '/login', session: false }),
-  (req, res) => {
-    const expiresIn = 60 * 60 * 24 * 180; // 180 days
+var callback = (req, res) => {
+    const expiresIn = 60 * 60 * 24 * 30; // 30 days
     const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
     res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
     res.redirect('/');
-  }
+}
+
+app.get('/login/facebook',
+  passport.authenticate('facebook', { scope: ['email', 'user_location'], session: false })
+);
+app.get('/login/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/login', session: false }), callback
 );
 app.get('/login/github',
     passport.authenticate('github', { scope: [ 'user:email' ], session: false })
 );
 
 app.get('/login/github/callback',
-    passport.authenticate('github', { failureRedirect: '/login' , session: false}),
-    (req, res) => {
-      const expiresIn = 60 * 60 * 24 * 180; // 180 days
-      const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
-      res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
-      res.redirect('/');
-    }
+    passport.authenticate('github', { failureRedirect: '/login' , session: false}), callback
 );
 
 app.get('/login/google',
     passport.authenticate('google', { scope: ['profile'], session: false }));
 
 app.get('/login/google/callback',
-    passport.authenticate('google', { failureRedirect: '/login' , session: false}),
-    function(req, res) {
-      const expiresIn = 60 * 60 * 24 * 180; // 180 days
-      const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
-      res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
-      res.redirect('/');
-    });
+    passport.authenticate('google', { failureRedirect: '/login' , session: false}), callback
+);
 
 //
 // Register API middleware
@@ -162,9 +151,7 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 // Launch the server
 // -----------------------------------------------------------------------------
 /* eslint-disable no-console */
-models.sync().catch(err => console.error(err.stack)).then(() => {
-  app.listen(port, () => {
+app.listen(port, () => {
     console.log(`The server is running at http://localhost:${port}/`);
-  });
 });
 /* eslint-enable no-console */
