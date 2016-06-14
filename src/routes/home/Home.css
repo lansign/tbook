@@ -10,8 +10,6 @@
 @import '../../components/variables.css';
 
 .root {
-  padding-left: 20px;
-  padding-right: 20px;
 }
 
 .container {
@@ -36,4 +34,23 @@
 .newsTitle,
 .newsDesc {
   display: block;
+}
+
+.herder {
+  display: flex;
+  flex: 1;
+  height: 50px;
+  background-color: #d94b40;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: white;
+}
+
+.card{
+  display: flex;
+  flex: 1;
+  background-color: white;
+  justify-content: space-between;
+  flex-direction: column;
 }
