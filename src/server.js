@@ -105,17 +105,11 @@ app.get('*', async (req, res, next) => {
       data.trackingId = analytics.google.trackingId;
     }
 
-    var user
-    try {
-      user = await jwt.verify(req.cookies.id_token, auth.jwt.secret)._doc
-    } catch (err) {
-      //ignore
-    }
-
+    console.log("user", req.user._doc)
     var success = await match(routes, {
       path: req.path,
       query: req.query,
-      user:user,
+      user:req.user ? req.user._doc : undefined,
       context: {
         insertCss: styles => css.push(styles._getCss()), // eslint-disable-line no-underscore-dangle
         setTitle: value => (data.title = value),
