@@ -20,6 +20,8 @@ import articleList from './article'
 import articleDetail from './article/Edit'
 import articleEdit from './article/detail'
 import articleAdd from './article/Add/index'
+import detail from './detail';
+
 
 export default {
 
@@ -34,7 +36,8 @@ export default {
         articleList,
         articleEdit,
         articleDetail,
-        articleAdd
+        articleAdd,
+        detail
     ],
 
   async action({ next, render, context }) {

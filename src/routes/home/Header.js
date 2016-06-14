@@ -3,17 +3,19 @@
  */
 
 import React, { PropTypes } from 'react';
-import s from './Home.css';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
-
-function Header({title}){
+export default function Header({title}){
 
     return(
-        <div className={s.herder}>
+        <div style={{display: 'flex',
+                      flex: 1,
+                      height: 50,
+                      backgroundColor: '#d94b40',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      fontSize: 20,
+                      color: 'white'}}>
             {title}
         </div>
     )
 }
-
-export default withStyles(s)(Header);

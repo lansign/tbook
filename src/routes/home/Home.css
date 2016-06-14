@@ -37,14 +37,7 @@
 }
 
 .herder {
-  display: flex;
-  flex: 1;
-  height: 50px;
-  background-color: #d94b40;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
-  color: white;
+
 }
 
 .card{
