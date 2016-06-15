@@ -45,7 +45,8 @@ describe('graphql mutation', () => {
                 return resp.json()
             }).then(data => {
                 var books = data.data.books;
-                expect(books).to.not.undefined;
+                expect(books).to.not.a('null');
+                expect(books).to.not.a('undefined');
                 for (var index in books) {
                     expect(books[index].id).to.be.equal(addId)
                     expect(books[index].title).to.be.a('string')
@@ -119,7 +120,8 @@ describe('graphql query', () => {
             return resp.json()
         }).then(data => {
             var books = data.data.books;
-            expect(books).to.not.undefined;
+            expect(books).to.not.a('null');
+            expect(books).to.not.a('undefined');
             for (var index in books) {
                 expect(books[index].id).to.be.a('string')
                 expect(books[index].title).to.be.a('string')
