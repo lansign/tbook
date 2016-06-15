@@ -43,8 +43,17 @@ class Add extends Component {
                         }/>
 
                     <div className={s.showFrame}>
+                        <div style={{display:'flex',flex:1,paddingTop:10}}>
+                            <input type="text" placeholder="无标题文章"
+                                   className={s.inputTitle}
+                                   style={{display:'flex',flex:1,height:40,fontSize: 30,paddingLeft:20,color:'#555555'}}
+                                   onChange={(e) =>{
+                                        this.state.title = e.target.value
+                                   }}/>
+                        </div>
+                        <hr/>
                         <span className={s.showFrame_span}  dangerouslySetInnerHTML= {this.rawMarkup()}/>
-                        <button className={s.button} type="submit" onClick={() => {this.send(this.state.text)}}>
+                        <button className={s.button} type="submit" onClick={() => {this.send(this.state.text,this.state.title)}}>
                             <img style={{marginRight:'10px'}} src={img.edit} />
 
                             发布
@@ -59,8 +68,11 @@ class Add extends Component {
         return { __html: md(this.state.text) };
     }
 
-    send(text) {
-
+    send(text,title) {
+        if (!title){
+            alert("标题不可为空");
+            return
+        }
         var rx_escapable = /[\\\"\u0000-\u001f\u007f-\u009f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g;
         var meta = {    // table of character substitutions
             "\b": "\\b",
@@ -100,7 +112,7 @@ class Add extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                query: `mutation{article(title: "test", content: ${requestText}) {id}}`
+                query: `mutation{article(title: "${title}", content: ${requestText}) {id}}`
             }),
             credentials: 'include'
         }).then(resp => {
