@@ -8,16 +8,35 @@
  */
 
 import ArticleType from '../types/article';
-import { GraphQLList as List } from 'graphql';
+import {
+    GraphQLList as List,
+    GraphQLString as StringType,
+    GraphQLBoolean as BooleanType,
+    GraphQLID as ID,
+    GraphQLInt as IntType,
+    GraphQLFloat as FloatType
+} from 'graphql';
 import BookModel from '../models/BookModel'
 
 const books = {
     type: new List(ArticleType),
-    resolve: function resolve() {
+    args:{
+        id: {type: ID},
+        author: {type: StringType},
+        size: {type: IntType},
+        createTime: {type: FloatType}
+    },
+    resolve: function resolve(root, args) {
         return new Promise(function (resolve, reject) {
-            BookModel.find(function (err, books) {
+            var callback = (err, books) => {
                 if (err) reject(err);else resolve(books);
-            });
+            }
+            if (args.id) {
+                BookModel.find({_id:args.id}, callback);
+            } else {
+                BookModel.find(args.author ? {} : {author:args.author}).where('createTime').lte(args.createTime ? args.createTime : new Date().getTime())
+                    .sort({createTime: -1}).limit((args.size && args.size > 0 && args.size < 500) ? args.size : 500).exec(callback);
+            }
         });
     }
 };

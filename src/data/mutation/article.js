@@ -39,7 +39,6 @@ const article = {
 
                 book.id = book._id
                 book.save(function (err) {
-                    console.log("add article", book)
                     if (err) reject(err)
                     else resolve(book)
                 })
@@ -47,7 +46,6 @@ const article = {
 
             if (args.id) {
                 BookModel.findById(args.id, function(err, book){
-                    console.log("findById", book, err)
                     if (err) {
                         reject(err)
                     } else if (book && book.author === root.request.user._doc._id) {

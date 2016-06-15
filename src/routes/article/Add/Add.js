@@ -56,6 +56,13 @@ class Add extends Component {
     }
 
     rawMarkup() {
+        //md.setOptions({
+        //    highlight: function (code, lang, callback) {
+        //        require('pygmentize-bundled')({ lang: lang, format: 'html' }, code, function (err, result) {
+        //            callback(err, result.toString());
+        //        });
+        //    }
+        //});
         return { __html: md(this.state.text) };
     }
 
