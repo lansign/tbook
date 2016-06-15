@@ -126,7 +126,7 @@ class Add extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                query: `mutation{article(title: "${title}", content: ${requestText}, imageUrl:"${imageUrl}") {id}}`
+                query: `mutation{article(title: "${title}", content: ${requestText}, imageUrl:"${imageUrl?imageUrl:""}") {id,imageUrl}}`
             }),
             credentials: 'include'
         }).then(resp => {
