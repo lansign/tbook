@@ -105,7 +105,6 @@ app.get('*', async (req, res, next) => {
       data.trackingId = analytics.google.trackingId;
     }
 
-    console.log("user", req.user._doc)
     var success = await match(routes, {
       path: req.path,
       query: req.query,

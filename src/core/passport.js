@@ -26,20 +26,20 @@ import { auth as config } from '../config';
 passport.use(new FacebookStrategy({
   clientID: config.facebook.id,
   clientSecret: config.facebook.secret,
-  callbackURL: 'http://localhost:3001/login/facebook/return',
+  callbackURL: config.facebook.callbackURL,
   profileFields: ['name', 'email', 'link', 'locale', 'timezone'],
 }, (accessToken, refreshToken, profile, done) => callback("facebook", accessToken, refreshToken, profile, done)))
 
 passport.use(new GitHubStrategy({
       clientID: config.github.id,
       clientSecret: config.github.secret,
-      callbackURL: "http://localhost:3001/login/github/callback"
+      callbackURL: config.github.callbackURL
     }, (accessToken, refreshToken, profile, done) => callback("github", accessToken, refreshToken, profile, done)))
 
 passport.use(new GoogleStrategy({
       clientID: config.google.id,
       clientSecret: config.google.secret,
-      callbackURL: "http://localhost:3001/login/google/callback"
+      callbackURL: config.google.callbackURL
     }, (accessToken, refreshToken, profile, done) => callback("google", accessToken, refreshToken, profile, done)))
 
 function callback(source, accessToken, refreshToken, profile, done) {
