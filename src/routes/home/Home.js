@@ -10,26 +10,25 @@
 import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Home.css';
+import Header from './Header'
+import CardWrapper from './Home.Card'
 
 const title = 'React Starter Kit';
 
-function Home({ news }, context) {
+function Home({ books }, context) {
   context.setTitle(title);
   return (
     <div className={s.root}>
-      <div className={s.container}>
-        <h1 className={s.title}>React.js News</h1>
-        <ul className={s.news}>
-          {news.map((item, index) => (
-            <li key={index} className={s.newsItem}>
-              <a href={item.link} className={s.newsTitle}>{item.title}</a>
-              <span
-                className={s.newsDesc}
-                dangerouslySetInnerHTML={{ __html: item.contentSnippet }}
-              />
-            </li>
-          ))}
-        </ul>
+        <Header title="技术博客"/>
+
+        <div className={s.container}>
+            <ul className={s.news}>
+              {books.map((item, index) => (
+                <li key={index} className={s.newsItem}>
+                    <CardWrapper book={item} />
+                </li>
+              ))}
+            </ul>
       </div>
     </div>
   );
