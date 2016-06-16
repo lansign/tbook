@@ -13,7 +13,7 @@ export default {
 
     path: '/detail/:id',
 
-    async action({ render, context,params}) {
+    async action({ render, context},{id}) {
 
         const resp = await fetch('/graphql', {
             method: 'post',
@@ -22,7 +22,7 @@ export default {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                query: `query { books(id:"${params.id}") { id,title,content,createTime,imageUrl} }`
+                query: `query { books(id:"${id}") { id,title,content,createTime,imageUrl} }`
             }),
             credentials: 'include',
         });

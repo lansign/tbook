@@ -16,7 +16,7 @@ export default class Detail extends React.Component{
 
         return(
             <div style={{flex:1,display:'flex',flexDirection:"column"}}>
-                <Header title="技术博客"/>
+                <Header backUrl="/"/>
 
 
                 {imageUrl?
