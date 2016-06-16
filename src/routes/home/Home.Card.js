@@ -8,8 +8,11 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
 
 function CardWrapper({book}){
-    const {title,createTime,imageUrl,id} = book;
+    const {title,createTime,imageUrl,id,author} = book;
     const date = new Date(createTime || 0);
+
+    console.log(author);
+
     return(
         <div className={s.card}>
             <a href={`/detail/${id}`} style={{textDecoration:'none'}}>
@@ -26,7 +29,7 @@ function CardWrapper({book}){
                                 {date.getFullYear()}-{date.getMonth() + 1}-{date.getDate()}
                             </div>
                             <div>
-                                作者:大光
+                                作者:{author?author.displayName:"null"}
                             </div>
                         </div>
                     </div>

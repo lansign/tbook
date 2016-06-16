@@ -23,7 +23,7 @@ export default {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        query: 'query { books { id,title,content,createTime,imageUrl} }'
+        query: 'query { books { id,title,content,createTime,imageUrl,author {source,sourceId,displayName}} }'
       }),
       credentials: 'include',
     });

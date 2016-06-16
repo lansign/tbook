@@ -11,7 +11,7 @@ import md from 'marked';
 export default class Detail extends React.Component{
 
     render(){
-        const {title,content,imageUrl,createTime} = this.props.data;
+        const {title,content,imageUrl,createTime,author} = this.props.data;
         const date = new Date(createTime || 0);
 
         return(
@@ -29,7 +29,7 @@ export default class Detail extends React.Component{
 
                         <div style={{flexDirection:'row',flex:1,padding:11,display:'flex'}}>
                             <div style={{fontSize:12,color:'#989898',display:'flex'}}>
-                                作者:大光
+                                作者:{author?author.displayName:"null"}
                             </div>
 
                             <div style={{marginLeft:20,fontSize:12,color:'#989898',display:'flex'}}>
