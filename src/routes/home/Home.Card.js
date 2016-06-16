@@ -12,7 +12,7 @@ function CardWrapper({book}){
     const date = new Date(createTime || 0);
     return(
         <div className={s.card}>
-            <a href={`/detail/${id}`} >
+            <a href={`/detail/${id}`} style={{textDecoration:'none'}}>
                 <div style={{flex:1,display:'flex',padding:11}} >
                     <div style={{flex:1,display:'flex',flexDirection:'column',justifyContent:'center',marginRight:8}}>
                         <div style={{
@@ -21,7 +21,7 @@ function CardWrapper({book}){
                         fontWeight:'bold'}}>
                             {title}
                         </div>
-                        <div style={{justifyContent:'space-between',flexDirection:'row',display:'flex',marginTop: 8}}>
+                        <div style={{justifyContent:'space-between',flexDirection:'row',display:'flex',marginTop: 8,color:'#131313'}}>
                             <div>
                                 {date.getFullYear()}-{date.getMonth() + 1}-{date.getDate()}
                             </div>
