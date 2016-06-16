@@ -29,7 +29,11 @@ function Home({ books }, context) {
                 </li>
               ))}
             </ul>
-      </div>
+        </div>
+
+        <a href="/article/add">
+            <img style={{position:'fixed',bottom:30,right:40}} src={require('./img/add.png')}/>
+        </a>
     </div>
   );
 }
