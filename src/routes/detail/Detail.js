@@ -15,33 +15,35 @@ export default class Detail extends React.Component{
         const date = new Date(createTime || 0);
 
         return(
-            <div style={{flex:1,display:'flex',flexDirection:"column"}}>
+            <div>
                 <Header backUrl="/"/>
+                <div style={{maxWidth:1000,margin:"0 auto"}}>
+                    <div >
+                        {imageUrl?
+                            <img style={{width:'100%',height:'auto'}} src={imageUrl}/>
+                            :null}
 
+                        <div style={{fontSize:21,padding:11,display:'flex'}}>
+                            {title}
+                        </div>
 
-                {imageUrl?
-                    <img style={{flex:1,height:180,display:'flex'}} src={imageUrl}/>
-                    :null}
+                        <div style={{flexDirection:'row',flex:1,padding:11,display:'flex'}}>
+                            <div style={{fontSize:12,color:'#989898',display:'flex'}}>
+                                作者:大光
+                            </div>
 
-                <div style={{fontSize:21,padding:11,display:'flex'}}>
-                    {title}
+                            <div style={{marginLeft:20,fontSize:12,color:'#989898',display:'flex'}}>
+                                {date.getFullYear()}-{date.getMonth() + 1}-{date.getDate()}
+                            </div>
+
+                            <div style={{marginLeft:20,fontSize:12,color:'#989898',display:'flex'}}>
+                                阅读133万+
+                            </div>
+                        </div>
+                    </div>
+
+                    <dev dangerouslySetInnerHTML= {{ __html: md(content) }}/>
                 </div>
-
-                <div style={{flexDirection:'row',flex:1,padding:11,display:'flex'}}>
-                    <div style={{fontSize:12,color:'#989898',display:'flex'}}>
-                        作者:大光
-                    </div>
-
-                    <div style={{marginLeft:20,fontSize:12,color:'#989898',display:'flex'}}>
-                        {date.getFullYear()}-{date.getMonth() + 1}-{date.getDate()}
-                    </div>
-
-                    <div style={{marginLeft:20,fontSize:12,color:'#989898',display:'flex'}}>
-                        阅读133万+
-                    </div>
-                </div>
-
-                <span dangerouslySetInnerHTML= {{ __html: md(content) }}/>
             </div>
         )
     }
