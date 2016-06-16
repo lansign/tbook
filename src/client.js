@@ -88,6 +88,7 @@ function run() {
       path: location.pathname,
       query: location.query,
       state: location.state,
+      params: location.params,
       context,
       render: render.bind(undefined, container, location.state),
     }).catch(err => console.error(err)); // eslint-disable-line no-console

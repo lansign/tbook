@@ -11,9 +11,10 @@ import fetch from '../../core/fetch';
 
 export default {
 
-    path: '/detail',
+    path: '/detail/:id',
 
-    async action() {
+    async action({ render, context,params}) {
+
         const resp = await fetch('/graphql', {
             method: 'post',
             headers: {
@@ -21,13 +22,14 @@ export default {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                query: 'query { books { id,title,content,createTime,imageUrl} }'
+                query: `query { books(id:"${params.id}") { id,title,content,createTime,imageUrl} }`
             }),
             credentials: 'include',
         });
         const { data } = await resp.json();
-        if (!data) throw new Error('Failed to load the news feed.');
-        
-        return <Detail data={data}/>
+        if (!data || !data.books) throw new Error('Failed to load the news feed.');
+        return render(
+             <Detail data={data.books[0]} context={context}/>
+        )
     }
 }

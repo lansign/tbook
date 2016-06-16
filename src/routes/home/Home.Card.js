@@ -12,7 +12,7 @@ function CardWrapper({book}){
     const date = new Date(createTime || 0);
     return(
         <div className={s.card}>
-            <a href={`/detail?id=${id}`} >
+            <a href={`/detail/${id}`} >
                 <div style={{flex:1,display:'flex',padding:11}} >
                     <div style={{flex:1,display:'flex',flexDirection:'column',justifyContent:'center',marginRight:8}}>
                         <div style={{
