@@ -32,10 +32,10 @@ const books = {
                 if (err) reject(err);else resolve(books);
             }
             if (args.id) {
-                BookModel.find({_id:args.id}, callback);
+                BookModel.find({_id:args.id}).populate('author').exec(callback);
             } else {
                 BookModel.find(args.author ? {author:args.author} : {}).where('createTime').lte(args.createTime ? args.createTime : new Date().getTime())
-                    .sort({createTime: -1}).limit((args.size && args.size > 0 && args.size < 500) ? args.size : 500).exec(callback);
+                    .sort({createTime: -1}).limit((args.size && args.size > 0 && args.size < 500) ? args.size : 500).populate('author').exec(callback);
             }
         });
     }

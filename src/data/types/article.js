@@ -27,7 +27,19 @@ const ArticleType = new ObjectType({
         content: {type: StringType},
         createTime: {type: Float},
         editTime: {type: Float},
-        author:{type:StringType}
+        author:{type:new ObjectType({
+            name: 'author',
+            fields: () => {
+                return {
+                    source: {type: StringType},
+                    sourceId: {type: StringType},
+                    displayName: {type: StringType},
+                    picture: {type: StringType},
+                    website: {type: StringType},
+                    location: {type: StringType}
+                }
+            }
+      })}
     }
   }
 })
