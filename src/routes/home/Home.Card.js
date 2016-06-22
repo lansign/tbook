@@ -11,8 +11,6 @@ function CardWrapper({book}){
     const {title,createTime,imageUrl,id,author} = book;
     const date = new Date(createTime || 0);
 
-    console.log(author);
-
     return(
         <div className={s.card}>
             <a href={`/detail/${id}`} style={{textDecoration:'none'}}>

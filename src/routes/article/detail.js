@@ -20,9 +20,6 @@ export default {
     path: '/article/detail/:id',
 
     action({ render, context}) {
-        console.log(context)
-
-
         return render(
             <App context={context}>
                 <Detail />

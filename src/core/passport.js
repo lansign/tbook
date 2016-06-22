@@ -43,7 +43,6 @@ passport.use(new GoogleStrategy({
     }, (accessToken, refreshToken, profile, done) => callback("google", accessToken, refreshToken, profile, done)))
 
 function callback(source, accessToken, refreshToken, profile, done) {
-  console.log("profile", profile);
   UserModel.findOne({source: source, sourceId: profile.id}, function (err, user) {
     if (err) {
       done(err, null);
