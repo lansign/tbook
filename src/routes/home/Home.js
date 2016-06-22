@@ -13,7 +13,7 @@ import s from './Home.css';
 import Header from './Header'
 import CardWrapper from './Home.Card'
 
-const title = 'React Starter Kit';
+const title = '技术博客';
 
 function Home({ books }, context) {
   context.setTitle(title);
@@ -32,7 +32,7 @@ function Home({ books }, context) {
         </div>
 
         <a href="/article/add">
-            <img style={{position:'fixed',bottom:30,right:40}} src={require('./img/add.png')}/>
+            <img style={{position:'fixed',bottom:30,right:40}} src={require('./img/add@1x.png')}/>
         </a>
     </div>
   );

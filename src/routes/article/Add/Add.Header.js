@@ -46,7 +46,7 @@ class Header extends React.Component{
 
         //获取title标签
         var titleRegex = text.match(/^#[\s]([^\s]*)/);
-        console.log(titleRegex)
+
         if (!titleRegex || !titleRegex[1]) {
             alert("标题不可为空, 您可以使用#来标识文章标题!");
             return
