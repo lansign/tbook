@@ -2,7 +2,7 @@
  * Created by lan on 16/6/1.
  */
 
-import App from '../../../components/App';
+import App from '../../components/App';
 import React from 'react';
 import Add from './Add';
 

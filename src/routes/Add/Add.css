@@ -1,4 +1,4 @@
-@import '../../../components/variables.css';
+@import '../../components/variables.css';
 
 html, body { font-family:var(--font-family-base); height: 100%; background: #e9e9e9;}
 

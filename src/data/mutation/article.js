@@ -48,7 +48,7 @@ const article = {
                 BookModel.findById(args.id, function(err, book){
                     if (err) {
                         reject(err)
-                    } else if (book && book.author === root.request.user._doc._id) {
+                    } else if (book && (book.isAdmin || book.author === root.request.user._doc._id)) {
                         book.title = args.title;
                         book.imageUrl = args.imageUrl;
                         book.thumbnailUrl = args.thumbnailUrl;

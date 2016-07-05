@@ -23,7 +23,8 @@ const Schema = new mongoose.Schema({
   website: String,
   location: String,
   accessToken: String,
-  refreshToken: String
+  refreshToken: String,
+  isAdmin:Boolean
 })
 
 Schema.index({ source: 1, sourceId: -1 }, { unique: true });

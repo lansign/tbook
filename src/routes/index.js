@@ -16,10 +16,7 @@ import contact from './contact';
 import login from './login';
 import content from './content';
 import error from './error';
-import articleList from './article'
-import articleDetail from './article/Edit'
-import articleEdit from './article/detail'
-import articleAdd from './article/Add/index'
+import add from './add'
 import detail from './detail';
 
 
@@ -33,10 +30,7 @@ export default {
         login,
         content,
         error,
-        articleList,
-        articleEdit,
-        articleDetail,
-        articleAdd,
+        add,
         detail
     ],
 

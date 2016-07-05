@@ -24,7 +24,8 @@ const books = {
         id: {type: ID},
         author: {type: StringType},
         size: {type: IntType},
-        createTime: {type: FloatType}
+        startTime: {type: FloatType},
+        recommend:{type: BooleanType}
     },
     resolve: function resolve(root, args) {
         return new Promise(function (resolve, reject) {
@@ -34,8 +35,13 @@ const books = {
             if (args.id) {
                 BookModel.find({_id:args.id}).populate('author').exec(callback);
             } else {
-                BookModel.find(args.author ? {author:args.author} : {}).where('createTime').lte(args.createTime ? args.createTime : new Date().getTime())
-                    .sort({createTime: -1}).limit((args.size && args.size > 0 && args.size < 500) ? args.size : 500).populate('author').exec(callback);
+                var query = BookModel.find(args.author ? {author:args.author} : {}).where('createTime')
+                    .lte(args.createTime ? args.createTime : new Date().getTime())
+                console.log(args.recommend)
+                if (args.recommend) {
+                    query = query.where('recommend', args.recommend)
+                }
+                query.sort({createTime: -1}).limit((args.size && args.size > 0 && args.size < 500) ? args.size : 500).populate('author').exec(callback);
             }
         });
     }

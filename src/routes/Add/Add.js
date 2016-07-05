@@ -3,10 +3,10 @@
  */
 
 import React, { Component, PropTypes }  from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import withStyles from '../../../node_modules/isomorphic-style-loader/lib/withStyles';
 import s from './Add.css';
-import fetch from '../../../core/fetch'
-import Header from './Add.Header'
+import fetch from '../../core/fetch'
+import Header from './Add.Header.js'
 
 const md = require('marked');
 

@@ -13,7 +13,8 @@ const Book = mongoose.model('Book', {
     content: String,
     createTime: { type: Number, index:true, default: new Date().getTime() },
     editTime: { type: Number, default: new Date().getTime() },
-    author: { type: String, ref: 'UserModel' }
+    author: { type: String, ref: 'UserModel' },
+    recommend: { type: Boolean, default: false }
 })
 
 export default Book;

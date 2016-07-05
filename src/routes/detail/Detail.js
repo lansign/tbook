@@ -24,9 +24,9 @@ export default class Detail extends React.Component{
                             :null}
 
                         <div style={{flexDirection:'row',flex:1,paddingLeft:"20px",paddingRight:"20px",paddingTop:"20px",display:'flex'}}>
-                            <img style={{width:'50px',height:'50px', borderRadius:"25px", borderWidth:'1px'}} src={author && author.picture ? author.picture:"http://s1.wacdn.com/wis/6/20124bb62868e77b_195x195.png"}/>
+                            <img style={{width:'50px',height:'50px', borderRadius:"25px", borderWidth:'1px'}} src={author && author.picture ? author.picture:require('./img/default_avatar@1x.png')}/>
 
-                            <div style={{paddingLeft:"10px", fontSize:18,color:'#000000',display:'flex', 'align-items': 'center', 'justify-content': 'center'}}>
+                            <div style={{paddingLeft:"10px", fontSize:18,color:'#000000',display:'flex', alignItems: 'center', justifyContent: 'center'}}>
                                 {author?author.displayName:"null"}
                             </div>
                         </div>

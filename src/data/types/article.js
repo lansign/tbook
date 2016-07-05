@@ -27,6 +27,7 @@ const ArticleType = new ObjectType({
         content: {type: StringType},
         createTime: {type: Float},
         editTime: {type: Float},
+        recommend:{type: BooleanType},
         author:{type:new ObjectType({
             name: 'author',
             fields: () => {

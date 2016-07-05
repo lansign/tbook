@@ -7,44 +7,44 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, { PropTypes } from 'react';
+import React, { PropTypes,Dimensions } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Home.css';
 import Header from './Header'
+import Personal from './PersonalCenter'
 import CardWrapper from './Home.Card'
 
 const title = '技术博客';
 
 function Home({ books }, context) {
-  context.setTitle(title);
-  return (
-    <div className={s.root}>
-        <Header title="技术博客"/>
+    context.setTitle(title);
+    return (
+        <div className={s.root}>
+            <Personal />
+            <div style={{maxWidth:'850px', width: '75%', flexDirection: 'column'}}>
+                <Header title="技术博客"/>
 
-        <div className={s.container}>
-            <ul className={s.news}>
-              {books.map((item, index) => (
-                <li key={index} className={s.newsItem}>
-                    <CardWrapper book={item} />
-                </li>
-              ))}
-            </ul>
+                <div className={s.container}>
+                    <ul className={s.news}>
+                      {books.map((item, index) => (
+                        <li key={index} className={s.newsItem}>
+                            <CardWrapper book={item} />
+                        </li>
+                      ))}
+                    </ul>
+                </div>
+
+                <a href="/article/add">
+                    <div style={{display: 'flex',position:'fixed',height: 50,width:50,backgroundColor: '#d94b40',
+                    bottom:30,right:40, borderRadius:"25px", borderWidth:'1px', alignItems: 'center', justifyContent: 'center'}}>
+                        <img src={require('./img/add@2x.png')}/>
+                    </div>
+                </a>
+            </div>
         </div>
-
-        <a href="/article/add">
-            <img style={{position:'fixed',bottom:30,right:40}} src={require('./img/add@1x.png')}/>
-        </a>
-    </div>
-  );
+    );
 }
 
-Home.propTypes = {
-  news: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    link: PropTypes.string.isRequired,
-    contentSnippet: PropTypes.string,
-  })).isRequired,
-};
 Home.contextTypes = { setTitle: PropTypes.func.isRequired };
 
 export default withStyles(s)(Home);

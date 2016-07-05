@@ -4,7 +4,7 @@
 
 import React from 'react'
 import s from './Add.css';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import withStyles from '../../../node_modules/isomorphic-style-loader/lib/withStyles';
 
 var img = {
     logo: require('./img/icon@1x.png'),
