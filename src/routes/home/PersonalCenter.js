@@ -11,25 +11,32 @@ class PersonalCenter extends Component {
         super(props);
         // 初始状态
         this.state = {
-            windowWidth: window.innerWidth
+            windowWidth: 0
         };
 
+        this.handleResize = this.handleResize.bind(this);
     }
 
     handleResize(e) {
-        this.setState({windowWidth: window.innerWidth})
+        this.setState({windowWidth: window && window.innerWidth})
+        if (this.props.onVisibleChange) {
+            this.props.onVisibleChange()
+        }
     }
 
     componentDidMount() {
-        window.addEventListener('resize', this.handleResize);
+        if (window && this.state.windowWidth != window.innerWidth) {
+            this.handleResize()
+        }
+
+        window && window.addEventListener('resize', this.handleResize);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', this.handleResize);
+        window && window.removeEventListener('resize', this.handleResize);
     }
 
     render() {
-        console.log(this.state.windowWidth, window.innerWidth)
         if (this.state.windowWidth < 600) {
             return null;
         }

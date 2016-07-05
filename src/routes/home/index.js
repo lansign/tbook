@@ -15,7 +15,7 @@ export default {
 
   path: '/',
 
-  async action() {
+  async action({context}) {
     const resp = await fetch('/graphql', {
       method: 'post',
       headers: {
@@ -29,7 +29,9 @@ export default {
     });
     const { data } = await resp.json();
     if (!data || !data.books) throw new Error('Failed to load the news feed.');
-    return <Home books={data.books} />;
+    return <Home
+        books={data.books}
+        context={context}/>;
   },
 
 };

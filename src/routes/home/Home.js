@@ -7,7 +7,7 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, { PropTypes,Dimensions } from 'react';
+import React, { PropTypes,Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Home.css';
 import Header from './Header'
@@ -16,33 +16,48 @@ import CardWrapper from './Home.Card'
 
 const title = '技术博客';
 
-function Home({ books }, context) {
-    context.setTitle(title);
-    return (
-        <div className={s.root}>
-            <Personal />
-            <div style={{maxWidth:'850px', width: '75%', flexDirection: 'column'}}>
-                <Header title="技术博客"/>
+class Home extends Component {
 
-                <div className={s.container}>
-                    <ul className={s.news}>
-                      {books.map((item, index) => (
-                        <li key={index} className={s.newsItem}>
-                            <CardWrapper book={item} />
-                        </li>
-                      ))}
-                    </ul>
-                </div>
+    // 构造
+      constructor(props) {
+        super(props);
+        // 初始状态
+        this.state = {};
+      }
 
-                <a href="/article/add">
-                    <div style={{display: 'flex',position:'fixed',height: 50,width:50,backgroundColor: '#d94b40',
-                    bottom:30,right:40, borderRadius:"25px", borderWidth:'1px', alignItems: 'center', justifyContent: 'center'}}>
-                        <img src={require('./img/add@2x.png')}/>
+    render() {
+        this.props.context.setTitle(title);
+        var width = this.state && this.state.isPersonalShow ? '75%' : '100%'
+        return (
+            <div className={s.root}>
+                <Personal
+                    onVisibleChange={(isShow) => {
+                        this.setState({isPersonalShow: isShow})
+                    }
+                }/>
+                <div style={{maxWidth:'850px', width: width, flexDirection: 'column'}}>
+                    <Header title="技术博客"/>
+
+                    <div className={s.container}>
+                        <ul className={s.news}>
+                            {this.props.books.map((item, index) => (
+                                <li key={index} className={s.newsItem}>
+                                    <CardWrapper book={item}/>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
-                </a>
+
+                    <a href="/article/add">
+                        <div style={{display: 'flex',position:'fixed',height: 50,width:50,backgroundColor: '#d94b40',
+                    bottom:30,right:40, borderRadius:"25px", borderWidth:'1px', alignItems: 'center', justifyContent: 'center'}}>
+                            <img src={require('./img/add@2x.png')}/>
+                        </div>
+                    </a>
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 Home.contextTypes = { setTitle: PropTypes.func.isRequired };
