@@ -37,8 +37,7 @@ const books = {
             } else {
                 var query = BookModel.find(args.author ? {author:args.author} : {}).where('createTime')
                     .lte(args.createTime ? args.createTime : new Date().getTime())
-                console.log(args.recommend)
-                if (args.recommend) {
+                if (args.recommend === true || args.recommend === false) {
                     query = query.where('recommend', args.recommend)
                 }
                 query.sort({createTime: -1}).limit((args.size && args.size > 0 && args.size < 500) ? args.size : 500).populate('author').exec(callback);
