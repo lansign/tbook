@@ -10,6 +10,7 @@ import {
     GraphQLID as ID
 } from 'graphql';
 import BookModel from '../models/BookModel'
+import UserModel from '../models/UserModel'
 
 const article = {
     type: ArticleType,
@@ -19,7 +20,8 @@ const article = {
         imageUrl: {type: StringType},
         thumbnailUrl: {type: StringType},
         summary: {type: StringType},
-        content: {type: new NonNull(StringType)}
+        content: {type: new NonNull(StringType)},
+        recommend: {type: BooleanType}
     },
 
     resolve: (root, args) => {
@@ -45,25 +47,36 @@ const article = {
             }
 
             if (args.id) {
-                BookModel.findById(args.id, function(err, book){
+                UserModel.findById(root.request.user._doc._id, function(err, user) {
                     if (err) {
                         reject(err)
-                    } else if (book && (book.isAdmin || book.author === root.request.user._doc._id)) {
-                        book.title = args.title;
-                        book.imageUrl = args.imageUrl;
-                        book.thumbnailUrl = args.thumbnailUrl;
-                        book.summary = args.summary;
-                        book.content = args.content;
-                        book.editTime = time.getTime();
-                        book.save((err) => {
+                    } else if (!user) {
+                        reject(new Error("您没有权限!"))
+                    } else {
+                        BookModel.findById(args.id, function(err, book){
                             if (err) {
                                 reject(err)
+                            } else if (book && (user.isAdmin || book.author === root.request.user._doc._id)) {
+                                book.title = args.title;
+                                book.imageUrl = args.imageUrl;
+                                book.thumbnailUrl = args.thumbnailUrl;
+                                book.summary = args.summary;
+                                book.content = args.content;
+                                book.editTime = time.getTime();
+                                if (user.isAdmin) {
+                                    book.recommend = args.recommend;
+                                }
+                                book.save((err) => {
+                                    if (err) {
+                                        reject(err)
+                                    } else {
+                                        resolve(book)
+                                    }
+                                })
                             } else {
-                                resolve(book)
+                                reject(new Error("您没有权限!"))
                             }
                         })
-                    } else {
-                        reject(new Error("您没有权限!"))
                     }
                 })
             } else {

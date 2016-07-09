@@ -18,6 +18,7 @@ import news from './queries/news'
 import books from './queries/book'
 import article from './mutation/article'
 import articleDelete from './mutation/ArticleDelete'
+import user from './mutation/user'
 
 const schema = new Schema({
   query: new ObjectType({
@@ -33,7 +34,8 @@ const schema = new Schema({
     name: 'Mutation',
     fields: {
       article,
-      articleDelete
+      articleDelete,
+      user
     }
   })
 });

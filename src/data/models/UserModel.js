@@ -17,14 +17,14 @@ const Schema = new mongoose.Schema({
   source: String,
   sourceId: String,
   email: { type: String, unique: true },
-  emailConfirmed: Boolean,
+  emailConfirmed: { type: Boolean, default: false },
   displayName: String,
   picture: String,
   website: String,
   location: String,
   accessToken: String,
   refreshToken: String,
-  isAdmin:Boolean
+  isAdmin:{ type: Boolean, default: false }
 })
 
 Schema.index({ source: 1, sourceId: -1 }, { unique: true });

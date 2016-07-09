@@ -12,13 +12,15 @@ import {
   GraphQLID as ID,
   GraphQLString as StringType,
   GraphQLNonNull as NonNull,
+  GraphQLBoolean as BooleanType
 } from 'graphql';
 
 const UserType = new ObjectType({
   name: 'User',
   fields: {
-    id: { type: new NonNull(ID) },
+    id: { type: ID },
     email: { type: StringType },
+    isAdmin: {type: BooleanType}
   },
 });
 

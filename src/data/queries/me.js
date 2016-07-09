@@ -8,14 +8,19 @@
  */
 
 import UserType from '../types/UserType';
+import UserModel from '../models/UserModel'
+import {
+    GraphQLList as List,
+} from 'graphql';
 
 const me = {
-  type: UserType,
-  resolve({ request }) {
-    return request.user && {
-      id: request.user.id,
-      email: request.user.email,
-    };
+  type: new List(UserType),
+  resolve: function resolve(root, args)  {
+    return new Promise(function (resolve, reject) {
+      UserModel.find((err, user) => {
+        if (err) reject(err);else resolve(user);
+      })
+    });
   },
 };
 
