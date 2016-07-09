@@ -16,11 +16,11 @@ const article = {
     type: ArticleType,
     args:{
         id: {type: ID},
-        title: {type: new NonNull(StringType)},
+        title: {type: StringType},
         imageUrl: {type: StringType},
         thumbnailUrl: {type: StringType},
         summary: {type: StringType},
-        content: {type: new NonNull(StringType)},
+        content: {type: StringType},
         recommend: {type: BooleanType}
     },
 
