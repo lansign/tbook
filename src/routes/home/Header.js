@@ -14,7 +14,7 @@ export default function Header({title,backUrl}){
                       alignItems: 'center',
                       flexDirection:'row'}}>
             {backUrl?<a href={backUrl} style={{height: 50,width:50,position:'absolute',textAlign:'center'}}>
-                    <img src={require('./img/back_white.png')} style={{marginTop: 13}} />
+                    <img src={require('./img/back_white.png')} style={{height:'auto',width:'auto',marginTop: 13}} />
                 </a>:null}
 
             {title?<div style={{flex:1,textAlign:'center',

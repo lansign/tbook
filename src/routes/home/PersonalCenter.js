@@ -20,7 +20,7 @@ class PersonalCenter extends Component {
     handleResize(e) {
         this.setState({windowWidth: window && window.innerWidth})
         if (this.props.onVisibleChange) {
-            this.props.onVisibleChange()
+            this.props.onVisibleChange(this.state.windowWidth >= 600)
         }
     }
 

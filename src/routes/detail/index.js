@@ -7,7 +7,7 @@
 import React from 'react';
 import Detail from './Detail'
 import fetch from '../../core/fetch';
-
+import App from '../../components/App';
 
 export default {
 
@@ -29,7 +29,9 @@ export default {
         const { data } = await resp.json();
         if (!data || !data.books) throw new Error('Failed to load the news feed.');
         return render(
-             <Detail data={data.books[0]} context={context}/>
+            <App context={context}>
+                <Detail data={data.books[0]} context={context}/>
+            </App>
         )
     }
 }
