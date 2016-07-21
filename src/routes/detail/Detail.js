@@ -7,11 +7,14 @@
 import React from 'react';
 import Header from '../home/Header'
 import md from 'marked';
+import withStyles from '../../../node_modules/isomorphic-style-loader/lib/withStyles';
+import s from './Detail.css';
 
-export default class Detail extends React.Component{
+class Detail extends React.Component{
 
     render(){
         const {title,content,imageUrl,createTime,author} = this.props.data;
+        this.props.context.setTitle(title)
         const date = new Date(createTime || 0);
 
         return(
@@ -39,3 +42,5 @@ export default class Detail extends React.Component{
     }
 }
 
+
+export default withStyles(s)(Detail);
